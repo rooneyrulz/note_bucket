@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "simple full stack app for storing notes",
   "main": "server.js",
+  "scripts": {
+    "start": "node -r esm server.js",
+    "server": "nodemon -r esm server.js"
+  },
   "repository": "https://github.com/rooneyrulz/note_bucket.git",
   "author": "rooneyrulz <roony0782045336@gmail.com>",
   "license": "MIT",
@@ -25,11 +29,13 @@
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "bluebird": "^3.5.5",
+    "cors": "^2.8.5",
     "dotenv": "^8.1.0",
     "esm": "^3.2.25",
     "express": "^4.17.1",
     "express-validator": "^6.2.0",
     "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.15",
     "mongoose": "^5.7.1",
     "morgan": "^1.9.1",
     "request": "^2.88.0"
