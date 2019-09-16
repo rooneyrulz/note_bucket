@@ -19,6 +19,20 @@ config();
 // USE HTTP-LOGGER MIDDLEWARE - MORGAN
 app.use(logger('dev'));
 
+// HANDLING CORS ERRORS
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header(
+    'Access-Control-Allow-Headers',
+    'Origin, X-Requested-With, Content-Type, Accept, Authorization, X-Auth-Token'
+  );
+  if (req.method === 'OPTIONS') {
+    res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, GET, DELETE');
+    return res.status(200).json({});
+  }
+  next();
+});
+
 app.use('/api/test', testRoute);
 app.use('/api/users', userRoute);
 app.use('/api/users/auth', authRoute);
