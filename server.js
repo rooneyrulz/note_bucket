@@ -19,6 +19,10 @@ config();
 // USE HTTP-LOGGER MIDDLEWARE - MORGAN
 app.use(logger('dev'));
 
+// EXPRESS MIDDLEWARE FOR PARSING JSON BODY
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+
 // HANDLING CORS ERRORS
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
