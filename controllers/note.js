@@ -40,7 +40,7 @@ export const getNote = async (req, res, next) => {
   }
 };
 
-// ROUTE            >     GET  /api/notes/:userId
+// ROUTE            >     GET  /api/notes/user/notes
 // DESC             >     GET NOTE BY USER
 // ACCESS CONTROL   >     PRIVATE
 export const getNoteByUser = async (req, res, next) => {
@@ -86,6 +86,37 @@ export const addNote = async (req, res, next) => {
     await user.save();
 
     return res.status(201).json(note);
+  } catch (error) {
+    console.log(error.message);
+    return res.status(500).send('Something went wrong!');
+  }
+};
+
+// ROUTE            >     DELETE  /api/notes/:id
+// DESC             >     DELETE NOTE
+// ACCESS CONTROL   >     PRIVATE
+export const deleteNote = async (req, res, next) => {
+  try {
+    const user = await User.findById(req.user.id).exec();
+
+    if (!user) return res.status(401).send('No user, Not authorized!');
+
+    const note = await Note.findById(req.params.id).exec();
+
+    if (!note) return res.status(400).send('Note not found!');
+
+    // FIND REMOVE INDEX
+    const removeIndex = user.notes.map(nte => nte.note).indexOf(req.params.id);
+
+    console.log(removeIndex);
+
+    user.notes.splice(removeIndex, 1);
+
+    await user.save();
+
+    await Note.deleteOne({ id: note.id });
+
+    return res.status(200).send('Note deleted successfully!');
   } catch (error) {
     console.log(error.message);
     return res.status(500).send('Something went wrong!');

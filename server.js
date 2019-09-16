@@ -9,6 +9,7 @@ import bluebird from 'bluebird';
 import testRoute from './routes/api/test';
 import userRoute from './routes/api/user';
 import authRoute from './routes/api/auth';
+import noteRoute from './routes/api/note';
 
 // IMPORT MONGODB CONNECTION
 import db from './config/database';
@@ -49,6 +50,7 @@ app.use((req, res, next) => {
 app.use('/api/test', testRoute);
 app.use('/api/users', userRoute);
 app.use('/api/users/auth', authRoute);
+app.use('/api/notes', noteRoute);
 
 // LISTEN TO THE SERVER
 server.listen(process.env.PORT || 5000, () =>
