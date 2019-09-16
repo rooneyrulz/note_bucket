@@ -5,7 +5,9 @@
   "main": "server.js",
   "scripts": {
     "start": "node -r esm server.js",
-    "server": "nodemon -r esm server.js"
+    "server": "nodemon -r esm server.js",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "repository": "https://github.com/rooneyrulz/note_bucket.git",
   "author": "rooneyrulz <roony0782045336@gmail.com>",
