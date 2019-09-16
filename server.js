@@ -5,17 +5,21 @@ import logger from 'morgan';
 
 // IMPORT ROUTES
 import testRoute from './routes/api/test';
+import userRoute from './routes/api/user';
+import authRoute from './routes/api/auth';
 
 const app = express();
 const server = createServer(app);
 
 // LOAD DOTENV
-if (process.env.NODE_ENV === 'development') config();
+config();
 
 // USE HTTP-LOGGER MIDDLEWARE - MORGAN
-if (process.env.NODE_ENV === 'development') app.use(logger('dev'));
+app.use(logger('dev'));
 
-app.use('/api', testRoute);
+app.use('/api/test', testRoute);
+app.use('/api/users', userRoute);
+app.use('/api/users/auth', authRoute);
 
 // LISTEN TO THE SERVER
 server.listen(process.env.PORT || 5000, () =>

@@ -1,7 +1,10 @@
 import { Router } from 'express';
 
+// IMPORT CONTROLLER
+import testController from '../../controllers/test';
+
 const router = Router({ strict: true });
 
-router.get('/test', (req, res, next) => res.status(200).send('Yes, Awesome!'));
+router.get('/', testController);
 
 export default router;
