@@ -3,9 +3,13 @@ import { sign } from 'jsonwebtoken';
 import { hash } from 'bcryptjs';
 import { validationResult } from 'express-validator';
 
+// IMPORT MODELS
 import User from '../models/User';
 import Note from '../models/Note';
 
+// ROUTE            >     GET  /api/users
+// DESC             >     GET ALL USERS
+// ACCESS CONTROL   >     PUBLIC
 export const getUsers = async (req, res, next) => {
   try {
     const users = await User.find()
@@ -21,6 +25,9 @@ export const getUsers = async (req, res, next) => {
   }
 };
 
+// ROUTE            >     GET  /api/user/:id
+// DESC             >     GET USER BY ID
+// ACCESS CONTROL   >     PUBLIC
 export const getUser = async (req, res, next) => {
   const { id } = req.params;
   try {
@@ -35,6 +42,9 @@ export const getUser = async (req, res, next) => {
   }
 };
 
+// ROUTE            >     POST  /api/users/add
+// DESC             >     ADD USERS
+// ACCESS CONTROL   >     PUBLIC
 export const addUser = async (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) return res.status(400).json(errors);
@@ -78,6 +88,9 @@ export const addUser = async (req, res, next) => {
   }
 };
 
+// ROUTE            >     DELETE  /api/users/:id
+// DESC             >     DELETE USER
+// ACCESS CONTROL   >     PRIVATE
 export const deleteUser = async (req, res, next) => {
   const { id } = req.params;
   try {
