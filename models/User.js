@@ -2,13 +2,13 @@ import { Schema, model } from 'mongoose';
 
 const userSchema = new Schema({
   _id: {
-    type: Schema.ObjectId,
+    type: Schema.Types.ObjectId,
   },
 
   notes: [
     {
       note: {
-        type: Schema.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: 'Note',
       },
     },

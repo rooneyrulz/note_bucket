@@ -114,7 +114,7 @@ export const deleteNote = async (req, res, next) => {
 
     await user.save();
 
-    await Note.deleteOne({ id: note.id });
+    await note.remove();
 
     return res.status(200).send('Note deleted successfully!');
   } catch (error) {
