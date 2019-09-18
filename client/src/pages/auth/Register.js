@@ -1,9 +1,19 @@
-import React from 'react';
+import React, { Fragment } from 'react';
+import { Link } from 'react-router-dom';
+
+// COMPONENTS
+import RegisterForm from '../../components/auth-forms/RegisterForm';
 
 const Register = () => {
   return (
-    <div>
-      <h1>Register</h1>
+    <div className="Register">
+      <Fragment>
+        <RegisterForm />
+      </Fragment>
+      <br />
+      <p className="text-muted lead text-center">
+        If you already have an account, Let's <Link to="/sign-in">Sign In</Link>
+      </p>
     </div>
   );
 };

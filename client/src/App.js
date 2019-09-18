@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import { Provider } from 'react-redux';
 import {
   BrowserRouter as Router,
   Route,
@@ -15,29 +16,34 @@ import Register from './pages/auth/Register';
 import Login from './pages/auth/Login';
 import Dashboard from './pages/dashboard/Dashboard';
 
+// REDUX
+import Store from './store';
+
 const App = () => {
   return (
-    <Router>
-      <Fragment>
-        <header></header>
-        <main>
-          <Switch>
-            <Redirect exact from="/" to="/home" />
-            <div className="App">
-              <Route exact path="/home" component={Home} />
-              <Route exact path="/products" component={null} />
-              <Route exact path="/about" component={About} />
-              <Route exact path="/cart" component={null} />
-              <Route exact path="/profile" component={null} />
-              <Route exact path="/dashboard" component={Dashboard} />
-              <Route exact path="/register" component={Register} />
-              <Route exact path="/sign-in" component={Login} />
-            </div>
-          </Switch>
-        </main>
-        <footer></footer>
-      </Fragment>
-    </Router>
+    <Provider store={Store}>
+      <Router>
+        <Fragment>
+          <header></header>
+          <main className="container my-5">
+            <Switch>
+              <Redirect exact from="/" to="/home" />
+              <div className="App">
+                <Route exact path="/home" component={Home} />
+                <Route exact path="/products" component={null} />
+                <Route exact path="/about" component={About} />
+                <Route exact path="/cart" component={null} />
+                <Route exact path="/profile" component={null} />
+                <Route exact path="/dashboard" component={Dashboard} />
+                <Route exact path="/register" component={Register} />
+                <Route exact path="/sign-in" component={Login} />
+              </div>
+            </Switch>
+          </main>
+          <footer></footer>
+        </Fragment>
+      </Router>
+    </Provider>
   );
 };
 
