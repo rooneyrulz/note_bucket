@@ -1,4 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import {
   Form,
   FormGroup,
@@ -9,11 +12,41 @@ import {
   CardBody,
   CardFooter,
   CardHeader,
-  CardTitle
+  CardTitle,
+  Alert
 } from 'reactstrap';
 
-const LoginForm = () => {
-  const onHandleChange = e => {};
+// REDUX
+import { loginUser } from '../../actions/auth';
+import setAlert from '../../actions/alert';
+
+const LoginForm = ({
+  auth: { isAuthenticated },
+  alert,
+  loginUser,
+  setAlert,
+  history
+}) => {
+  const [formData, setformData] = useState({
+    username: '',
+    password: ''
+  });
+
+  const { username, password } = formData;
+
+  const onHandleChange = e =>
+    setformData({ ...formData, [e.target.name]: e.target.value });
+
+  const onHandleSubmit = e => {
+    e.preventDefault();
+    if (!username.trim() || !password.trim()) {
+      setAlert('Please fill out all fields!', 400, 'danger', 'LOGIN_FAIL');
+    } else {
+      loginUser(formData);
+    }
+  };
+
+  if (isAuthenticated) history.push('/dashboard');
 
   return (
     <Card style={{ width: '60%', margin: 'auto' }}>
@@ -23,7 +56,15 @@ const LoginForm = () => {
         </CardTitle>
       </CardHeader>
       <CardBody>
-        <Form>
+        <Form onSubmit={e => onHandleSubmit(e)}>
+          {alert.map(
+            alrt =>
+              alrt.textId === 'LOGIN_FAIL' && (
+                <span key={alrt.id}>
+                  <Alert color={alrt.alertType}>{alrt.msg}</Alert>
+                </span>
+              )
+          )}
           <FormGroup>
             <Input
               type="text"
@@ -44,20 +85,34 @@ const LoginForm = () => {
               onChange={e => onHandleChange(e)}
             />
           </FormGroup>
+          <ButtonGroup>
+            <Button className="btn-lg" type="submit" color="success">
+              Sign In
+            </Button>
+            <Button className="btn-lg" type="button" color="secondary">
+              Back
+            </Button>
+          </ButtonGroup>
         </Form>
       </CardBody>
-      <CardFooter>
-        <ButtonGroup>
-          <Button className="btn-lg" type="submit" color="success">
-            Sign In
-          </Button>
-          <Button className="btn-lg" type="button" color="secondary">
-            Back
-          </Button>
-        </ButtonGroup>
-      </CardFooter>
+      <CardFooter></CardFooter>
     </Card>
   );
 };
 
-export default LoginForm;
+LoginForm.propTypes = {
+  auth: PropTypes.object.isRequired,
+  alert: PropTypes.array.isRequired,
+  loginUser: PropTypes.func.isRequired,
+  setAlert: PropTypes.func.isRequired
+};
+
+const mapStateToProps = state => ({
+  auth: state.auth,
+  alert: state.alert
+});
+
+export default connect(
+  mapStateToProps,
+  { loginUser, setAlert }
+)(withRouter(LoginForm));

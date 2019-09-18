@@ -62,6 +62,9 @@ export const registerUser = formData => async dispatch => {
     dispatch(loadUser());
   } catch (error) {
     // DISPATCH REGISTER FAIL
+    dispatch({ type: REGISTER_FAIL });
+
+    // DISPATCH SET ALERT
     if (error.response.data.errors) {
       const { errors } = error.response.data;
       errors.map(err => {
@@ -76,6 +79,52 @@ export const registerUser = formData => async dispatch => {
           error.response.status,
           'danger',
           'REGISTER_FAIL'
+        )
+      );
+    }
+  }
+};
+
+// LOGIN USER
+export const loginUser = formData => async dispatch => {
+  // SET HEADERS
+  const config = {
+    header: {
+      'Content-Type': 'application/json'
+    }
+  };
+
+  try {
+    const { data } = await axios.post(
+      `${uri}/api/users/auth`,
+      formData,
+      config
+    );
+
+    // DISPATCH LOGIN SUCCESS
+    dispatch({ type: LOGIN_SUCCESS, payload: data });
+
+    // DISPATCH LOAD USER
+    dispatch(loadUser());
+  } catch (error) {
+    // DISPATCH LOGIN FAIL
+    dispatch({ type: LOGIN_FAIL });
+
+    // DISPATCH SET ALERT
+    if (error.response.data.errors) {
+      const { errors } = error.response.data;
+      errors.map(err => {
+        console.log(err.msg);
+        dispatch(setAlert(err.msg, 400, 'danger', 'LOGIN_FAIL'));
+      });
+    } else {
+      console.log(error.response.data);
+      dispatch(
+        setAlert(
+          error.response.data,
+          error.response.status,
+          'danger',
+          'LOGIN_FAIL'
         )
       );
     }
