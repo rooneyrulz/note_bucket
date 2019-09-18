@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { Provider } from 'react-redux';
 import {
   BrowserRouter as Router,
@@ -18,8 +18,11 @@ import Dashboard from './pages/dashboard/Dashboard';
 
 // REDUX
 import Store from './store';
+import { loadUser } from './actions/auth';
 
 const App = () => {
+  useEffect(() => Store.dispatch(loadUser()), []);
+
   return (
     <Provider store={Store}>
       <Router>
