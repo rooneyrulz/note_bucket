@@ -21,7 +21,9 @@ import Store from './store';
 import { loadUser } from './actions/auth';
 
 const App = () => {
-  useEffect(() => Store.dispatch(loadUser()), []);
+  useEffect(() => {
+    Store.dispatch(loadUser());
+  }, []);
 
   return (
     <Provider store={Store}>

@@ -1,4 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import {
   Form,
   FormGroup,
@@ -9,11 +12,48 @@ import {
   CardBody,
   CardFooter,
   CardHeader,
-  CardTitle
+  CardTitle,
+  Alert
 } from 'reactstrap';
 
-const RegisterForm = () => {
-  const onHandleChange = e => {};
+// REDUX
+import { registerUser } from '../../actions/auth';
+import setAlert from '../../actions/alert';
+
+const RegisterForm = ({
+  auth: { isAuthenticated },
+  alert,
+  registerUser,
+  setAlert,
+  history
+}) => {
+  const [formData, setformData] = useState({
+    username: '',
+    email: '',
+    password: '',
+    password2: ''
+  });
+
+  const { username, email, password, password2 } = formData;
+
+  const onHandleChange = e =>
+    setformData({ ...formData, [e.target.name]: e.target.value });
+
+  const onHandleSubmit = e => {
+    e.preventDefault();
+    if (
+      !username.trim() ||
+      !email.trim() ||
+      !password.trim() ||
+      !password2.trim()
+    ) {
+      setAlert('Please fill out all fields!', 400, 'danger', 'REGISTER_FAIL');
+    } else {
+      registerUser(formData);
+    }
+  };
+
+  if (isAuthenticated) history.push('/dashboard');
 
   return (
     <Card style={{ width: '60%', margin: 'auto' }}>
@@ -23,7 +63,15 @@ const RegisterForm = () => {
         </CardTitle>
       </CardHeader>
       <CardBody>
-        <Form>
+        <Form onSubmit={e => onHandleSubmit(e)}>
+          {alert.map(
+            alrt =>
+              alrt.textId === 'REGISTER_FAIL' && (
+                <span key={alrt.id}>
+                  <Alert color={alrt.alertType}>{alrt.msg}</Alert>
+                </span>
+              )
+          )}
           <FormGroup>
             <Input
               type="text"
@@ -64,20 +112,34 @@ const RegisterForm = () => {
               onChange={e => onHandleChange(e)}
             />
           </FormGroup>
+          <ButtonGroup>
+            <Button className="btn-lg" type="submit" color="success">
+              Sign Up
+            </Button>
+            <Button className="btn-lg" type="button" color="secondary">
+              Back
+            </Button>
+          </ButtonGroup>
         </Form>
       </CardBody>
-      <CardFooter>
-        <ButtonGroup>
-          <Button className="btn-lg" type="submit" color="success">
-            Sign Up
-          </Button>
-          <Button className="btn-lg" type="button" color="secondary">
-            Back
-          </Button>
-        </ButtonGroup>
-      </CardFooter>
+      <CardFooter></CardFooter>
     </Card>
   );
 };
 
-export default RegisterForm;
+RegisterForm.propTypes = {
+  auth: PropTypes.object.isRequired,
+  alert: PropTypes.array.isRequired,
+  registerUser: PropTypes.func.isRequired,
+  setAlert: PropTypes.func.isRequired
+};
+
+const mapStateToProps = state => ({
+  auth: state.auth,
+  alert: state.alert
+});
+
+export default connect(
+  mapStateToProps,
+  { registerUser, setAlert }
+)(withRouter(RegisterForm));

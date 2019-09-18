@@ -27,8 +27,7 @@ export const loadUser = () => async dispatch => {
   };
 
   try {
-    const { data } = await axios.get('/api/users/auth/user', config);
-    console.log(data);
+    const { data } = await axios.get(`${uri}/api/users/auth/user`, config);
 
     // DISPATCH USER_LOADED
     dispatch({ type: USER_LOADED, payload: data });
@@ -41,5 +40,44 @@ export const loadUser = () => async dispatch => {
     // dispatch(
     //   setAlert(error.message, error.response.status, 'danger', 'AUTH_ERROR')
     // );
+  }
+};
+
+// REGISTER USERS
+export const registerUser = formData => async dispatch => {
+  // SET HEADERS
+  const config = {
+    header: {
+      'Content-Type': 'application/json'
+    }
+  };
+
+  try {
+    const { data } = await axios.post(`${uri}/api/users/add`, formData, config);
+
+    // DISPATCH REGISTER SUCCESS
+    dispatch({ type: REGISTER_SUCCESS, payload: data });
+
+    // DISPATCH LOAD USER
+    dispatch(loadUser());
+  } catch (error) {
+    // DISPATCH REGISTER FAIL
+    if (error.response.data.errors) {
+      const { errors } = error.response.data;
+      errors.map(err => {
+        console.log(err.msg);
+        dispatch(setAlert(err.msg, 400, 'danger', 'REGISTER_FAIL'));
+      });
+    } else {
+      console.log(error.response.data);
+      dispatch(
+        setAlert(
+          error.response.data,
+          error.response.status,
+          'danger',
+          'REGISTER_FAIL'
+        )
+      );
+    }
   }
 };
