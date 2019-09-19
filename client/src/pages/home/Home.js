@@ -1,11 +1,26 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { Jumbotron } from 'reactstrap';
 
-const Home = () => {
+const Home = ({ isAuthenticated, history }) => {
+  if (isAuthenticated) history.push('/dashboard');
+
   return (
-    <div>
-      <h1>Home</h1>
+    <div className='Home'>
+      <Jumbotron style={{ background: 'transparent' }}>
+        <h1 className='text-primary display-4'>Home</h1>
+      </Jumbotron>
     </div>
   );
 };
 
-export default Home;
+Home.propTypes = {
+  isAuthenticated: PropTypes.bool
+};
+
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated
+});
+
+export default connect(mapStateToProps)(Home);

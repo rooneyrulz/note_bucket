@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -50,46 +50,48 @@ const LoginForm = ({
 
   return (
     <Card style={{ width: '60%', margin: 'auto' }}>
-      <CardHeader className="text-center">
+      <CardHeader className='text-center'>
         <CardTitle>
-          <h1 className="text-primary">Sign In</h1>
+          <h1 className='text-primary'>Sign In</h1>
         </CardTitle>
       </CardHeader>
       <CardBody>
         <Form onSubmit={e => onHandleSubmit(e)}>
-          {alert.map(
-            alrt =>
-              alrt.textId === 'LOGIN_FAIL' && (
-                <span key={alrt.id}>
-                  <Alert color={alrt.alertType}>{alrt.msg}</Alert>
-                </span>
-              )
-          )}
+          <Fragment>
+            {alert.map(
+              alrt =>
+                alrt.textId === 'LOGIN_FAIL' && (
+                  <span key={alrt.id}>
+                    <Alert color={alrt.alertType}>{alrt.msg}</Alert>
+                  </span>
+                )
+            )}
+          </Fragment>
           <FormGroup>
             <Input
-              type="text"
-              id="username"
-              name="username"
-              placeholder="Enter username"
-              className="form-control-lg"
+              type='text'
+              id='username'
+              name='username'
+              placeholder='Enter username'
+              className='form-control-lg'
               onChange={e => onHandleChange(e)}
             />
           </FormGroup>
           <FormGroup>
             <Input
-              type="password"
-              id="password"
-              name="password"
-              placeholder="Enter password"
-              className="form-control-lg"
+              type='password'
+              id='password'
+              name='password'
+              placeholder='Enter password'
+              className='form-control-lg'
               onChange={e => onHandleChange(e)}
             />
           </FormGroup>
           <ButtonGroup>
-            <Button className="btn-lg" type="submit" color="success">
+            <Button className='btn-lg' type='submit' color='success'>
               Sign In
             </Button>
-            <Button className="btn-lg" type="button" color="secondary">
+            <Button className='btn-lg' type='button' color='secondary'>
               Back
             </Button>
           </ButtonGroup>
