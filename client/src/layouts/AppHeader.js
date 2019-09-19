@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -27,22 +27,41 @@ const AppHeader = ({ isAuthenticated }) => {
         <Collapse navbar isOpen={isOpen}>
           <Nav navbar className='ml-auto'>
             {!isAuthenticated ? (
-              <NavItem>
-                <NavLink className='nav-link' exact to='/home'>
-                  Home
-                </NavLink>
-              </NavItem>
+              <Fragment>
+                <NavItem>
+                  <NavLink className='nav-link' exact to='/home'>
+                    Home
+                  </NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink className='nav-link' exact to='/profiles'>
+                    Profiles
+                  </NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink className='nav-link' exact to='/about'>
+                    About
+                  </NavLink>
+                </NavItem>
+              </Fragment>
             ) : (
-              <NavItem>
-                <NavLink className='nav-link' exact to='/dashboard'>
-                  Dashboard
-                </NavLink>
-              </NavItem>
+              <Fragment>
+                <NavItem>
+                  <NavLink className='nav-link' exact to='/dashboard'>
+                    Dashboard
+                  </NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink className='nav-link' exact to='/notes'>
+                    Notes
+                  </NavLink>
+                </NavItem>
+              </Fragment>
             )}
           </Nav>
           <Nav navbar className='ml-auto'>
             {!isAuthenticated ? (
-              <>
+              <Fragment>
                 <NavItem>
                   <NavLink className='nav-link' exact to='/register'>
                     Register
@@ -53,7 +72,7 @@ const AppHeader = ({ isAuthenticated }) => {
                     Sign In
                   </NavLink>
                 </NavItem>
-              </>
+              </Fragment>
             ) : (
               <NavItem>
                 <NavLink className='nav-link' onClick={e => onHandleLogOut(e)}>

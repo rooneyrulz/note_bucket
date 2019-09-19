@@ -9,6 +9,8 @@ import About from '../../pages/about/About';
 import Register from '../../pages/auth/Register';
 import Login from '../../pages/auth/Login';
 import Dashboard from '../../pages/dashboard/Dashboard';
+import Notes from '../../pages/notes/Notes';
+import Profiles from '../../pages/profiles/Profiles';
 
 import PrivateRoute from '../../components/routing/PrivateRoute';
 
@@ -33,6 +35,8 @@ const Routes = ({ alert }) => (
         <Route exact path='/cart' component={null} />
         <Route exact path='/profile' component={null} />
         <PrivateRoute exact path='/dashboard' component={Dashboard} />
+        <PrivateRoute exact path='/notes' component={Notes} />
+        <Route exact path='/profiles' component={Profiles} />
         <Route exact path='/register' component={Register} />
         <Route exact path='/sign-in' component={Login} />
       </Switch>

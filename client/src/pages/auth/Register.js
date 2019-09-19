@@ -6,13 +6,13 @@ import RegisterForm from '../../components/auth-forms/RegisterForm';
 
 const Register = () => {
   return (
-    <div className="Register">
+    <div className='Register'>
       <Fragment>
         <RegisterForm />
       </Fragment>
       <br />
-      <p className="text-muted lead text-center">
-        If you already have an account, Let's <Link to="/sign-in">Sign In</Link>
+      <p className='text-muted lead text-center'>
+        If you already have an account, Let's <Link to='/sign-in'>Sign In</Link>
       </p>
     </div>
   );
