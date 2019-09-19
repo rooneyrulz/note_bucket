@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -31,6 +31,8 @@ const LoginForm = ({
     username: '',
     password: ''
   });
+
+  useEffect(() => {}, []);
 
   const { username, password } = formData;
 

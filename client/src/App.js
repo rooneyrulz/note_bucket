@@ -9,7 +9,8 @@ import {
 
 import './App.css';
 
-// ROUTES
+// COMPONENTS
+import AppHeader from './layouts/AppHeader';
 import Routes from './components/routing/Routes';
 
 // REDUX
@@ -25,7 +26,9 @@ const App = () => {
     <Provider store={Store}>
       <Router>
         <Fragment>
-          <header></header>
+          <header>
+            <AppHeader />
+          </header>
           <main className='container my-5'>
             <Switch>
               <Redirect exact from='/' to='/home' />
