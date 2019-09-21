@@ -37,13 +37,13 @@ export const getNotes = () => async dispatch => {
     });
 
     // DISPATCH SET ALERT
-    dispatch(
-      setAlert(
-        error.response.data,
-        error.response.status,
-        'danger',
-        'NOTE_ERROR'
-      )
-    );
+    // dispatch(
+    //   setAlert(
+    //     error.response.data,
+    //     error.response.status,
+    //     'danger',
+    //     'NOTE_ERROR'
+    //   )
+    // );
   }
 };

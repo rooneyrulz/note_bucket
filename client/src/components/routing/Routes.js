@@ -21,7 +21,8 @@ const Routes = ({ alert }) => (
         {alert.map(
           alrt =>
             alrt.textId !== 'REGISTER_FAIL' &&
-            alrt.textId !== 'LOGIN_FAIL' && (
+            alrt.textId !== 'LOGIN_FAIL' &&
+            alrt.textId !== 'NOTE_CREATE_ERROR' && (
               <span key={alrt.id}>
                 <Alert color={alrt.alertType}>{alrt.msg}</Alert>
               </span>
