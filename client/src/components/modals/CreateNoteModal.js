@@ -14,16 +14,17 @@ import {
 } from 'reactstrap';
 
 // REDUX
+import { addNote } from '../../actions/note';
 import setAlert from '../../actions/alert';
 
-const CreateNoteModal = ({ alert, setAlert }) => {
+const CreateNoteModal = ({ alert, setAlert, addNote }) => {
   const [isOpen, setisOpen] = useState(false);
   const [formData, setFormData] = useState({
     title: '',
-    description: ''
+    text: ''
   });
 
-  const { title, description } = formData;
+  const { title, text } = formData;
 
   const toggle = e => setisOpen(!isOpen);
 
@@ -33,15 +34,23 @@ const CreateNoteModal = ({ alert, setAlert }) => {
   const onHandleSubmit = e => {
     e.preventDefault();
 
-    if (!title || !description) {
+    if (!title || !text) {
       setAlert(
         'Please fill out all fields',
         400,
         'danger',
         'NOTE_CREATE_ERROR'
       );
+    } else {
+      addNote(formData);
+
+      const msgs = alert.filter(alrt => alrt.textId === 'CREATE_NOTE_ERROR');
+
+      if (msgs.length < 1) {
+        toggle();
+        //window.location.href = '/notes';
+      }
     }
-    console.log(formData);
   };
 
   return (
@@ -74,7 +83,7 @@ const CreateNoteModal = ({ alert, setAlert }) => {
               <textarea
                 className='form-control'
                 id='description'
-                name='description'
+                name='text'
                 type='text'
                 placeholder='Enter description'
                 onChange={e => onHandleChange(e)}
@@ -95,11 +104,17 @@ const CreateNoteModal = ({ alert, setAlert }) => {
   );
 };
 
+CreateNoteModal.propTypes = {
+  alert: PropTypes.array.isRequired,
+  setAlert: PropTypes.func.isRequired,
+  addNote: PropTypes.func.isRequired
+};
+
 const mapStateToProps = state => ({
   alert: state.alert
 });
 
 export default connect(
   mapStateToProps,
-  { setAlert }
+  { setAlert, addNote }
 )(CreateNoteModal);

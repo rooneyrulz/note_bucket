@@ -47,3 +47,41 @@ export const getNotes = () => async dispatch => {
     // );
   }
 };
+
+// ADD NOTES
+export const addNote = formData => async dispatch => {
+  // SET HEADERS
+  const config = {
+    header: {
+      'Content-Types': 'application/json'
+    }
+  };
+
+  try {
+    const { data } = await axios.post(`${uri}/api/notes/add`, formData, config);
+
+    // DISPATCH ADD_NOTE
+    dispatch({ type: ADD_NOTE, payload: data });
+  } catch (error) {
+    // DISPATCH NOTE_ERROR
+    dispatch({
+      type: NOTE_ERROR,
+      payload: {
+        msg: error.response.data,
+        status: error.response.status
+      }
+    });
+
+    if (error.response.data.errors) {
+      const { errors } = error.response.data;
+
+      errors.map(error =>
+        dispatch(setAlert(error.msg, 400, 'danger', 'NOTE_CREATE_ERROR'))
+      );
+    } else {
+      dispatch(
+        setAlert(error.response.data, 400, 'danger', 'NOTE_CREATE_ERROR')
+      );
+    }
+  }
+};
