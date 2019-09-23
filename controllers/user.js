@@ -69,18 +69,18 @@ export const addUser = async (req, res, next) => {
       _id: mongoose.Types.ObjectId(),
       username,
       email,
-      password: hashedPwd,
+      password: hashedPwd
     });
 
     const user = await newUser.save();
 
-    const token = await sign({ id: user.id }, process.env.JWT_KEY, {
-      expiresIn: '360000',
+    const token = sign({ id: user.id }, process.env.JWT_KEY, {
+      expiresIn: 360000
     });
 
     return res.status(201).json({
       token,
-      user,
+      user
     });
   } catch (error) {
     console.log(error.message);

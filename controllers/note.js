@@ -76,7 +76,7 @@ export const addNote = async (req, res, next) => {
       _id: mongoose.Types.ObjectId(),
       user: user.id,
       title,
-      text,
+      text
     });
 
     const note = await newNote.save();
@@ -86,6 +86,49 @@ export const addNote = async (req, res, next) => {
     await user.save();
 
     return res.status(201).json(note);
+  } catch (error) {
+    console.log(error.message);
+    return res.status(500).send('Something went wrong!');
+  }
+};
+
+// ROUTE            >     PUT  /api/notes/:id
+// DESC             >     UPDATE NOTES
+// ACCESS CONTROL   >     PRIVATE
+export const updateNote = async (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) return res.status(400).json(errors);
+
+  const { title, text } = req.body;
+  try {
+    const user = await User.findById(req.user.id).exec();
+
+    if (!user) return res.status(401).send('No user, Not authorized!');
+
+    const isNote = await Note.findById(req.params.id).exec();
+
+    if (!isNote) return res.status(400).send('Note not found!');
+
+    const isUserNote = user.notes.find(
+      note => note.note.toString() === req.params.id.toString()
+    );
+
+    if (!isUserNote)
+      return res.status(400).send('Note not found in your list!');
+
+    const newNote = {
+      user: user.id,
+      title,
+      text
+    };
+
+    const note = await Note.findOneAndUpdate(
+      { _id: req.params.id },
+      { $set: newNote },
+      { new: true }
+    );
+
+    return res.status(200).json(note);
   } catch (error) {
     console.log(error.message);
     return res.status(500).send('Something went wrong!');

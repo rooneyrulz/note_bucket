@@ -6,8 +6,9 @@ import {
   getNotes,
   getNote,
   addNote,
+  updateNote,
   deleteNote,
-  getNoteByUser,
+  getNoteByUser
 } from '../../controllers/note';
 
 // IMPORT AUTH MIDDLEWARE
@@ -42,9 +43,26 @@ router.post(
       .isEmpty(),
     check('text', 'Please enter some text!')
       .not()
-      .isEmpty(),
+      .isEmpty()
   ],
   addNote
+);
+
+// ROUTE            >     PUT  /api/notes/:id
+// DESC             >     UPDATE NOTE
+// ACCESS CONTROL   >     PRIVATE
+router.put(
+  '/:id',
+  isAuth,
+  [
+    check('title', 'Please enter a valid title!')
+      .not()
+      .isEmpty(),
+    check('text', 'Please enter some text!')
+      .not()
+      .isEmpty()
+  ],
+  updateNote
 );
 
 // ROUTE            >     DELETE  /api/notes/:id

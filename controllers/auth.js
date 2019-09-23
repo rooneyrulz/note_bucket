@@ -22,13 +22,13 @@ export const authenticateUser = async (req, res, next) => {
 
     if (!isMatch) return res.status(400).send('Password does not match!');
 
-    const token = await sign({ id: user.id }, process.env.JWT_KEY, {
-      expiresIn: '360000',
+    const token = sign({ id: user.id }, process.env.JWT_KEY, {
+      expiresIn: 360000
     });
 
     return res.status(200).json({
       token,
-      user,
+      user
     });
   } catch (error) {
     console.log(error.message);
