@@ -35,7 +35,7 @@ const CreateNoteModal = ({
 
   const toggle = e => setisOpen(!isOpen);
 
-  if (!isAuthenticated) history.push('/sign-in');
+  // if (!isAuthenticated) history.push('/sign-in');
 
   const onHandleChange = e =>
     setFormData({ ...formData, [e.target.name]: e.target.value });

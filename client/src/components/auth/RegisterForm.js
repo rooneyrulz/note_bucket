@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect } from 'react';
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
@@ -56,10 +56,10 @@ const RegisterForm = ({
   if (isAuthenticated) history.push('/dashboard');
 
   return (
-    <Card style={{ width: '60%', margin: 'auto' }}>
+    <Card color='dark' style={{ width: '60%', margin: 'auto' }}>
       <CardHeader className='text-center'>
         <CardTitle>
-          <h1 className='text-primary'>Sign Up</h1>
+          <h1 className='text-light'>Sign Up</h1>
         </CardTitle>
       </CardHeader>
       <CardBody>
@@ -118,13 +118,15 @@ const RegisterForm = ({
             <Button className='btn-lg' type='submit' color='success'>
               Sign Up
             </Button>
-            <Button className='btn-lg' type='button' color='secondary'>
+            <Button className='btn-lg' type='button' color='light'>
               Back
             </Button>
           </ButtonGroup>
         </Form>
       </CardBody>
-      <CardFooter></CardFooter>
+      <CardFooter className='text-muted text-center'>
+        If you already have an account, Let's <Link to='/sign-in'>Sign In</Link>
+      </CardFooter>
     </Card>
   );
 };

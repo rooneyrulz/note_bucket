@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 // COMPONENT
 import CreateNoteModal from '../../components/modals/CreateNoteModal';
 import NoteComponent from '../../components/note/Note';
+import Spinner from '../../layouts/Spinner';
 
 // REDUX
 import { getNotes } from '../../actions/note';
@@ -19,10 +20,10 @@ const Notes = ({
     getNotes();
   }, [getNotes]);
 
-  if (!isAuthenticated) history.push('/sign-in');
+  // if (!isAuthenticated) history.push('/sign-in');
 
-  return notes.length < 1 && loading ? (
-    <h1>Loading</h1>
+  return loading ? (
+    <Spinner />
   ) : (
     <div className='Notes'>
       <header
