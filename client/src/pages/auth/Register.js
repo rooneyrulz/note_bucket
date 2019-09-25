@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 
 // COMPONENTS
-import RegisterForm from '../../components/auth-forms/RegisterForm';
+import RegisterForm from '../../components/auth/RegisterForm';
 
 const Register = () => {
   return (

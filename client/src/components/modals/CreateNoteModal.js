@@ -1,4 +1,5 @@
 import React, { Fragment, useState } from 'react';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
@@ -17,7 +18,13 @@ import {
 import { addNote } from '../../actions/note';
 import setAlert from '../../actions/alert';
 
-const CreateNoteModal = ({ alert, setAlert, addNote }) => {
+const CreateNoteModal = ({
+  isAuthenticated,
+  alert,
+  setAlert,
+  addNote,
+  history
+}) => {
   const [isOpen, setisOpen] = useState(false);
   const [formData, setFormData] = useState({
     title: '',
@@ -27,6 +34,8 @@ const CreateNoteModal = ({ alert, setAlert, addNote }) => {
   const { title, text } = formData;
 
   const toggle = e => setisOpen(!isOpen);
+
+  if (!isAuthenticated) history.push('/sign-in');
 
   const onHandleChange = e =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -42,13 +51,12 @@ const CreateNoteModal = ({ alert, setAlert, addNote }) => {
         'NOTE_CREATE_ERROR'
       );
     } else {
-      addNote(formData);
+      addNote(formData, history);
 
       const msgs = alert.filter(alrt => alrt.textId === 'CREATE_NOTE_ERROR');
 
       if (msgs.length < 1) {
         toggle();
-        //window.location.href = '/notes';
       }
     }
   };
@@ -105,16 +113,18 @@ const CreateNoteModal = ({ alert, setAlert, addNote }) => {
 };
 
 CreateNoteModal.propTypes = {
+  isAuthenticated: PropTypes.bool,
   alert: PropTypes.array.isRequired,
   setAlert: PropTypes.func.isRequired,
   addNote: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated,
   alert: state.alert
 });
 
 export default connect(
   mapStateToProps,
   { setAlert, addNote }
-)(CreateNoteModal);
+)(withRouter(CreateNoteModal));

@@ -12,12 +12,13 @@ import {
   Collapse
 } from 'reactstrap';
 
+// COMPONENTS
+import LogOut from '../components/auth/LogOut';
+
 const AppHeader = ({ isAuthenticated }) => {
   const [isOpen, setisOpen] = useState(false);
 
   const toggle = e => setisOpen(!isOpen);
-
-  const onHandleLogOut = e => {};
 
   return (
     <Navbar dark color='dark' expand='lg'>
@@ -75,13 +76,7 @@ const AppHeader = ({ isAuthenticated }) => {
               </Fragment>
             ) : (
               <NavItem>
-                <NavLink
-                  to='#!'
-                  className='nav-link'
-                  onClick={e => onHandleLogOut(e)}
-                >
-                  Logout
-                </NavLink>
+                <LogOut />
               </NavItem>
             )}
           </Nav>

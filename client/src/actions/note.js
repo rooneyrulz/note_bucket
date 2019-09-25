@@ -49,7 +49,7 @@ export const getNotes = () => async dispatch => {
 };
 
 // ADD NOTES
-export const addNote = formData => async dispatch => {
+export const addNote = (formData, history) => async dispatch => {
   // SET HEADERS
   const config = {
     header: {
@@ -64,24 +64,26 @@ export const addNote = formData => async dispatch => {
     dispatch({ type: ADD_NOTE, payload: data });
   } catch (error) {
     // DISPATCH NOTE_ERROR
-    dispatch({
-      type: NOTE_ERROR,
-      payload: {
-        msg: error.response.data,
-        status: error.response.status
+    if (error.response) {
+      dispatch({
+        type: NOTE_ERROR,
+        payload: {
+          msg: error.response.data,
+          status: error.response.status
+        }
+      });
+
+      if (error.response.data.errors) {
+        const { errors } = error.response.data;
+
+        errors.map(error =>
+          dispatch(setAlert(error.msg, 400, 'danger', 'NOTE_CREATE_ERROR'))
+        );
+      } else {
+        dispatch(
+          setAlert(error.response.data, 400, 'danger', 'NOTE_CREATE_ERROR')
+        );
       }
-    });
-
-    if (error.response.data.errors) {
-      const { errors } = error.response.data;
-
-      errors.map(error =>
-        dispatch(setAlert(error.msg, 400, 'danger', 'NOTE_CREATE_ERROR'))
-      );
-    } else {
-      dispatch(
-        setAlert(error.response.data, 400, 'danger', 'NOTE_CREATE_ERROR')
-      );
     }
   }
 };

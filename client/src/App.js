@@ -16,6 +16,9 @@ import Routes from './components/routing/Routes';
 // REDUX
 import Store from './store';
 import { loadUser } from './actions/auth';
+import setAuthToken from './utils/setAuthToken';
+
+if (localStorage.token) setAuthToken(localStorage.token);
 
 const App = () => {
   useEffect(() => {
