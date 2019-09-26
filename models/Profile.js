@@ -1,10 +1,6 @@
 import { Schema, model } from 'mongoose';
 
 const profileSchema = new Schema({
-  _id: {
-    type: Schema.Types.ObjectId
-  },
-
   user: {
     type: Schema.Types.ObjectId,
     ref: 'User'
