@@ -2,40 +2,45 @@ import { Schema, model } from 'mongoose';
 
 const userSchema = new Schema({
   _id: {
+    type: Schema.Types.ObjectId
+  },
+
+  profile: {
     type: Schema.Types.ObjectId,
+    ref: 'Profile'
   },
 
   notes: [
     {
       note: {
         type: Schema.Types.ObjectId,
-        ref: 'Note',
-      },
-    },
+        ref: 'Note'
+      }
+    }
   ],
 
   username: {
     type: String,
     unique: true,
-    required: [true, 'username is required!'],
+    required: [true, 'username is required!']
   },
 
   email: {
     type: String,
     unique: true,
-    required: [true, 'email is required!'],
+    required: [true, 'email is required!']
   },
 
   password: {
     type: String,
     unique: true,
-    required: [true, 'password is required!'],
+    required: [true, 'password is required!']
   },
 
   date: {
     type: Date,
-    default: Date.now,
-  },
+    default: Date.now
+  }
 });
 
 export default model('User', userSchema);
