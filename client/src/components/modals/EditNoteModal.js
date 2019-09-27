@@ -12,7 +12,9 @@ import {
   Alert
 } from 'reactstrap';
 
-const CreateNoteModal = ({ history }) => {
+// REDUX
+
+const EditNoteModal = ({ note, history }) => {
   const [isOpen, setisOpen] = useState(false);
   const [formData, setFormData] = useState({
     title: '',
@@ -63,6 +65,7 @@ const CreateNoteModal = ({ history }) => {
                 id='title'
                 name='title'
                 type='text'
+                value={note.title}
                 placeholder='Enter title'
                 onChange={e => onHandleChange(e)}
               />
@@ -73,6 +76,7 @@ const CreateNoteModal = ({ history }) => {
                 id='description'
                 name='text'
                 type='text'
+                value={note.text}
                 placeholder='Enter description'
                 onChange={e => onHandleChange(e)}
               />
@@ -92,4 +96,4 @@ const CreateNoteModal = ({ history }) => {
   );
 };
 
-export default withRouter(CreateNoteModal);
+export default withRouter(EditNoteModal);

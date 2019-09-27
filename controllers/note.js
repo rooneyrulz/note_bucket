@@ -25,7 +25,7 @@ export const getNotes = async (req, res, next) => {
 
 // ROUTE            >     GET  /api/notes/:id
 // DESC             >     GET NOTE BY ID
-// ACCESS CONTROL   >     PUBLIC
+// ACCESS CONTROL   >     PRIVATE
 export const getNote = async (req, res, next) => {
   const { id } = req.params;
   try {

@@ -21,7 +21,7 @@ const Note = ({ note }) => {
       <span>{note.title}</span>
       <div className='btn-group'>
         <Fragment>
-          <EditNoteModal />
+          <EditNoteModal note={note} />
         </Fragment>
         <a href='#!' className='btn btn-sm btn-danger'>
           Delete

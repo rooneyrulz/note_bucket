@@ -48,6 +48,25 @@ export const getNotes = () => async dispatch => {
   }
 };
 
+// GET NOTE
+export const getNote = id => async dispatch => {
+  // SET HEADERS
+  const config = {
+    header: {
+      'Content-Types': 'application/json'
+    }
+  };
+
+  try {
+    const { data } = await axios.get(`${uri}/api/notes/${id}`, config);
+
+    // DISPATCH GET_NOTE
+    dispatch({ type: GET_NOTE, payload: data });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
 // ADD NOTES
 export const addNote = (formData, history) => async dispatch => {
   // SET HEADERS

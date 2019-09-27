@@ -23,8 +23,8 @@ router.get('/', getNotes);
 
 // ROUTE            >     GET  /api/notes/:id
 // DESC             >     GET NOTE BY ID
-// ACCESS CONTROL   >     PUBLIC
-router.get('/:id', getNote);
+// ACCESS CONTROL   >     PRIVATE
+router.get('/:id', isAuth, getNote);
 
 // ROUTE            >     GET  /api/notes/user/notes
 // DESC             >     GET NOTE BY USER ID
