@@ -1,3 +1,5 @@
+import { validationResult } from 'express-validator';
+
 import User from '../models/User';
 import Profile from '../models/Profile';
 import Note from '../models/Note';
@@ -60,6 +62,9 @@ export const getMyProfile = async (req, res, next) => {
 // DESC             >     CREATE / UPDATE PROFILE
 // ACCESS CONTROL   >     PRIVATE
 export const createOrUpdateProfile = async (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) return res.status(400).json(errors);
+
   const {
     name,
     company,
@@ -110,27 +115,29 @@ export const createOrUpdateProfile = async (req, res, next) => {
 
     profileObject.social = socialObject;
 
-    let profile;
+    let newProfile;
 
     if (profile) {
       // UPDATE AN EXISTING PROFILE
-      profile = await Profile.findOneAndUpdate(
+      newProfile = await Profile.findOneAndUpdate(
         { user: req.user.id },
         { $set: profileObject },
         { new: true }
       ).exec();
 
-      return res.status(200).json(profile);
+      return res.status(200).json(newProfile);
     }
 
     // CREATE A NEW PROFILE INSTANCE
-    profile = new Profile(profileObject);
+    const newProfileInstance = new Profile(profileObject);
 
-    profile = await profile.save();
+    newProfile = await newProfileInstance.save();
 
-    await user.profile = profile.id;
+    user.profile = newProfile._id;
 
-    return res.status(201).json(profile);
+    await user.save();
+
+    return res.status(201).json(newProfile);
   } catch (error) {
     console.log(error.message);
     return res.status(500).send('Something went wrong!');
@@ -146,15 +153,20 @@ export const deleteProfile = async (req, res, next) => {
 
     if (!user) return res.status(400).send('User not found!');
 
-    if (user.profile.toString() !== req.params.id.toString()) return res.status(400).send('Profile not found!');
-
-    await Profile.deleteOne({ id: req.params.id }).exec();
+    const profile = await Profile.findById(req.params.id).exec();
 
     const notes = await Note.find({ user: req.user.id }).exec();
 
-    if (notes.length > 1) return await Note.deleteMany({ user: req.user.id }).exec()
+    if (!profile) return res.status(400).send('Profile not found!');
 
-    await User.deleteOne({ id: req.user.id }).exec();
+    if (profile.user.toString() !== req.user.id.toString())
+      return res.status(400).send('Access denied, Unauthorized!');
+
+    await profile.remove();
+
+    await user.remove();
+
+    if (notes.length > 1) await Note.deleteMany({ user: req.user.id }).exec();
 
     return res.status(200).send('Profile deleted!');
   } catch (error) {
