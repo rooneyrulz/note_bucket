@@ -129,6 +129,8 @@ export const createOrUpdateProfile = async (req, res, next) => {
 
     profile = await profile.save();
 
+    await user.profile = profile.id;
+
     return res.status(201).json(profile);
   } catch (error) {
     console.log(error.message);
