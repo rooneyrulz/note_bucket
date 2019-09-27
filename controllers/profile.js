@@ -1,7 +1,6 @@
-import mongoose from 'mongoose';
-
 import User from '../models/User';
 import Profile from '../models/Profile';
+import Note from '../models/Note';
 
 // ROUTE            >     GET  /api/profiles
 // DESC             >     GET ALL PROFILES
@@ -132,6 +131,32 @@ export const createOrUpdateProfile = async (req, res, next) => {
     await user.profile = profile.id;
 
     return res.status(201).json(profile);
+  } catch (error) {
+    console.log(error.message);
+    return res.status(500).send('Something went wrong!');
+  }
+};
+
+// ROUTE            >     DELETE  /api/profiles/:id
+// DESC             >     DELETE PROFILE
+// ACCESS CONTROL   >     PRIVATE
+export const deleteProfile = async (req, res, next) => {
+  try {
+    const user = await User.findById(req.user.id).exec();
+
+    if (!user) return res.status(400).send('User not found!');
+
+    if (user.profile.toString() !== req.params.id.toString()) return res.status(400).send('Profile not found!');
+
+    await Profile.deleteOne({ id: req.params.id }).exec();
+
+    const notes = await Note.find({ user: req.user.id }).exec();
+
+    if (notes.length > 1) return await Note.deleteMany({ user: req.user.id }).exec()
+
+    await User.deleteOne({ id: req.user.id }).exec();
+
+    return res.status(200).send('Profile deleted!');
   } catch (error) {
     console.log(error.message);
     return res.status(500).send('Something went wrong!');
