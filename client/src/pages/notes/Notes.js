@@ -10,17 +10,10 @@ import Spinner from '../../layouts/Spinner';
 // REDUX
 import { getNotes } from '../../actions/note';
 
-const Notes = ({
-  isAuthenticated,
-  note: { notes, loading },
-  getNotes,
-  history
-}) => {
+const Notes = ({ note: { notes, loading }, getNotes, history }) => {
   useEffect(() => {
-    getNotes();
-  }, [getNotes]);
-
-  // if (!isAuthenticated) history.push('/sign-in');
+    setInterval(() => getNotes(), 500);
+  }, []);
 
   return loading ? (
     <Spinner />
@@ -67,13 +60,11 @@ const Notes = ({
 };
 
 Notes.propTypes = {
-  isAuthenticated: PropTypes.bool,
   note: PropTypes.object.isRequired,
   getNotes: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated,
   note: state.note
 });
 

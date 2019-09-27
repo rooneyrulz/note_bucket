@@ -62,6 +62,8 @@ export const addNote = (formData, history) => async dispatch => {
 
     // DISPATCH ADD_NOTE
     dispatch({ type: ADD_NOTE, payload: data });
+
+    history.push('/notes');
   } catch (error) {
     // DISPATCH NOTE_ERROR
     if (error.response) {

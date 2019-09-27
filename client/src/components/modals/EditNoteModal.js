@@ -1,7 +1,5 @@
 import React, { Fragment, useState } from 'react';
 import { withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import {
   Modal,
   ModalBody,
@@ -14,11 +12,7 @@ import {
   Alert
 } from 'reactstrap';
 
-// REDUX
-import { addNote } from '../../actions/note';
-import setAlert from '../../actions/alert';
-
-const CreateNoteModal = ({ alert, setAlert, addNote, history }) => {
+const CreateNoteModal = ({ history }) => {
   const [isOpen, setisOpen] = useState(false);
   const [formData, setFormData] = useState({
     title: '',
@@ -36,42 +30,34 @@ const CreateNoteModal = ({ alert, setAlert, addNote, history }) => {
     e.preventDefault();
 
     if (!title || !text) {
-      setAlert(
-        'Please fill out all fields',
-        400,
-        'danger',
-        'NOTE_CREATE_ERROR'
-      );
+      alert('empty fields!');
     } else {
-      addNote(formData, history);
-
-      const msgs = alert.filter(alrt => alrt.textId === 'CREATE_NOTE_ERROR');
-
-      if (msgs.length < 1) {
-        toggle();
-      }
-
-      setAlert('A note has been successfully created!', 201, 'success');
+      console.log(formData);
     }
   };
 
   return (
     <Fragment>
-      <Button onClick={e => toggle(e)} type='button' color='success'>
-        Create
+      <Button
+        className='btn-sm'
+        onClick={e => toggle(e)}
+        type='button'
+        color='light'
+      >
+        Edit
       </Button>
       <Modal isOpen={isOpen}>
-        <ModalHeader toggle={e => toggle(e)}>Create Notes</ModalHeader>
+        <ModalHeader toggle={e => toggle(e)}>Update Notes</ModalHeader>
         <ModalBody>
           <Form onSubmit={e => onHandleSubmit(e)}>
-            {alert.map(
+            {/* {alert.map(
               alrt =>
                 alrt.textId === 'NOTE_CREATE_ERROR' && (
                   <span key={alrt.id}>
                     <Alert color={alrt.alertType}>{alrt.msg}</Alert>
                   </span>
                 )
-            )}
+            )} */}
             <FormGroup>
               <Input
                 id='title'
@@ -91,8 +77,8 @@ const CreateNoteModal = ({ alert, setAlert, addNote, history }) => {
                 onChange={e => onHandleChange(e)}
               />
             </FormGroup>
-            <Button block color='success' type='submit'>
-              Create
+            <Button block color='dark' type='submit'>
+              Update
             </Button>
           </Form>
         </ModalBody>
@@ -106,17 +92,4 @@ const CreateNoteModal = ({ alert, setAlert, addNote, history }) => {
   );
 };
 
-CreateNoteModal.propTypes = {
-  alert: PropTypes.array.isRequired,
-  setAlert: PropTypes.func.isRequired,
-  addNote: PropTypes.func.isRequired
-};
-
-const mapStateToProps = state => ({
-  alert: state.alert
-});
-
-export default connect(
-  mapStateToProps,
-  { setAlert, addNote }
-)(withRouter(CreateNoteModal));
+export default withRouter(CreateNoteModal);

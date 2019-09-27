@@ -1,4 +1,7 @@
-import React from 'react';
+import React, { Fragment } from 'react';
+
+// COMPONENTS
+import EditNoteModal from '../modals/EditNoteModal';
 
 const Note = ({ note }) => {
   return (
@@ -17,9 +20,9 @@ const Note = ({ note }) => {
     >
       <span>{note.title}</span>
       <div className='btn-group'>
-        <a href='#!' className='btn btn-sm btn-light'>
-          Edit
-        </a>
+        <Fragment>
+          <EditNoteModal />
+        </Fragment>
         <a href='#!' className='btn btn-sm btn-danger'>
           Delete
         </a>
