@@ -1,5 +1,4 @@
 import React, { Fragment, useState } from 'react';
-import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
@@ -18,7 +17,7 @@ import {
 import { addNote } from '../../actions/note';
 import setAlert from '../../actions/alert';
 
-const CreateNoteModal = ({ alert, setAlert, addNote, history }) => {
+const CreateNoteModal = ({ alert, setAlert, addNote }) => {
   const [isOpen, setisOpen] = useState(false);
   const [formData, setFormData] = useState({
     title: '',
@@ -43,7 +42,7 @@ const CreateNoteModal = ({ alert, setAlert, addNote, history }) => {
         'NOTE_CREATE_ERROR'
       );
     } else {
-      addNote(formData, history);
+      addNote(formData);
 
       const msgs = alert.filter(alrt => alrt.textId === 'CREATE_NOTE_ERROR');
 
@@ -91,7 +90,7 @@ const CreateNoteModal = ({ alert, setAlert, addNote, history }) => {
                 onChange={e => onHandleChange(e)}
               />
             </FormGroup>
-            <Button block color='success' type='submit'>
+            <Button block color='outline-success' type='submit'>
               Create
             </Button>
           </Form>
@@ -119,4 +118,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   { setAlert, addNote }
-)(withRouter(CreateNoteModal));
+)(CreateNoteModal);

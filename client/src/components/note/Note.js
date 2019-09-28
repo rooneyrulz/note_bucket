@@ -1,4 +1,6 @@
 import React, { Fragment } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 // COMPONENTS
 import EditNoteModal from '../modals/EditNoteModal';
@@ -23,7 +25,7 @@ const Note = ({ note }) => {
         <Fragment>
           <EditNoteModal note={note} />
         </Fragment>
-        <a href='#!' className='btn btn-sm btn-danger'>
+        <a href='#!' className='btn btn-sm btn-outline-danger'>
           Delete
         </a>
       </div>
@@ -31,4 +33,9 @@ const Note = ({ note }) => {
   );
 };
 
-export default Note;
+const mapStateToProps = state => ({});
+
+export default connect(
+  mapStateToProps,
+  null
+)(Note);

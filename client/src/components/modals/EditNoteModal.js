@@ -1,5 +1,6 @@
 import React, { Fragment, useState } from 'react';
-import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import {
   Modal,
   ModalBody,
@@ -13,14 +14,15 @@ import {
 } from 'reactstrap';
 
 // REDUX
+import { updateNote } from '../../actions/note';
+import setAlert from '../../actions/alert';
 
-const EditNoteModal = ({ note, history }) => {
+const EditNoteModal = ({ note, updateNote, setAlert, alert }) => {
   const [isOpen, setisOpen] = useState(false);
   const [formData, setFormData] = useState({
     title: '',
     text: ''
   });
-
   const { title, text } = formData;
 
   const toggle = e => setisOpen(!isOpen);
@@ -32,9 +34,23 @@ const EditNoteModal = ({ note, history }) => {
     e.preventDefault();
 
     if (!title || !text) {
-      alert('empty fields!');
+      setAlert(
+        'Please fill out all fields!',
+        400,
+        'danger',
+        'NOTE_UPDATE_ERROR'
+      );
     } else {
-      console.log(formData);
+      updateNote(formData, note._id);
+
+      const msgs = alert.filter(alrt => alrt.textId === 'NOTE_UPDATE_ERROR')
+        .length;
+
+      if (msgs < 1) {
+        toggle();
+      }
+
+      setAlert('Note has been successfully updated!', 200, 'success');
     }
   };
 
@@ -52,23 +68,23 @@ const EditNoteModal = ({ note, history }) => {
         <ModalHeader toggle={e => toggle(e)}>Update Notes</ModalHeader>
         <ModalBody>
           <Form onSubmit={e => onHandleSubmit(e)}>
-            {/* {alert.map(
+            {alert.map(
               alrt =>
-                alrt.textId === 'NOTE_CREATE_ERROR' && (
+                alrt.textId === 'NOTE_UPDATE_ERROR' && (
                   <span key={alrt.id}>
                     <Alert color={alrt.alertType}>{alrt.msg}</Alert>
                   </span>
                 )
-            )} */}
+            )}
             <FormGroup>
               <Input
                 id='title'
                 name='title'
                 type='text'
-                value={note.title}
-                placeholder='Enter title'
+                placeholder='Enter new title'
                 onChange={e => onHandleChange(e)}
               />
+              <small className='text-muted'>Old title: {note.title}</small>
             </FormGroup>
             <FormGroup>
               <textarea
@@ -76,12 +92,12 @@ const EditNoteModal = ({ note, history }) => {
                 id='description'
                 name='text'
                 type='text'
-                value={note.text}
-                placeholder='Enter description'
+                placeholder='Enter new description'
                 onChange={e => onHandleChange(e)}
               />
+              <small className='text-muted'>Old description: {note.text}</small>
             </FormGroup>
-            <Button block color='dark' type='submit'>
+            <Button block color='outline-dark' type='submit'>
               Update
             </Button>
           </Form>
@@ -96,4 +112,17 @@ const EditNoteModal = ({ note, history }) => {
   );
 };
 
-export default withRouter(EditNoteModal);
+EditNoteModal.propTypes = {
+  alert: PropTypes.array.isRequired,
+  updateNote: PropTypes.func.isRequired,
+  setAlert: PropTypes.func.isRequired
+};
+
+const mapStateToProps = state => ({
+  alert: state.alert
+});
+
+export default connect(
+  mapStateToProps,
+  { updateNote, setAlert }
+)(EditNoteModal);

@@ -108,3 +108,49 @@ export const addNote = (formData, history) => async dispatch => {
     }
   }
 };
+
+// UPDATE NOTE
+export const updateNote = (formData, id) => async dispatch => {
+  // SET HEADERS
+  const config = {
+    header: {
+      'Content-Type': 'application/json'
+    }
+  };
+
+  try {
+    const { data } = await axios.put(
+      `${uri}/api/notes/${id}`,
+      formData,
+      config
+    );
+
+    // DISPATCH UPDATE NOTE
+    dispatch({ type: UPDATE_NOTE, payload: { note: data, id } });
+  } catch (error) {
+    console.log(error.message);
+
+    // DISPATCH NOTE_ERROR
+    if (error.response) {
+      dispatch({
+        type: NOTE_ERROR,
+        payload: {
+          msg: error.response.data,
+          status: error.response.status
+        }
+      });
+
+      if (error.response.data.errors) {
+        const { errors } = error.response.data;
+
+        errors.map(error =>
+          dispatch(setAlert(error.msg, 400, 'danger', 'NOTE_UPDATE_ERROR'))
+        );
+      } else {
+        dispatch(
+          setAlert(error.response.data, 400, 'danger', 'NOTE_UPDATE_ERROR')
+        );
+      }
+    }
+  }
+};
