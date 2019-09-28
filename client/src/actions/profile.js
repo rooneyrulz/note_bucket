@@ -11,6 +11,31 @@ import {
 
 const uri = 'http://localhost:5000';
 
+// GET CURRENT USER PROFILE
+export const getCurrentProfile = () => async dispatch => {
+  // SET HEADERS
+  const config = {
+    header: {
+      'Content-Type': 'application/json'
+    }
+  };
+
+  try {
+    const { data } = await axios.get(`${uri}/api/profiles/me`, config);
+
+    // DISPATCH GET PROFILE
+    dispatch({ type: GET_PROFILE, payload: data });
+  } catch (error) {
+    console.log(error.message);
+
+    // DISPACH PROFILE ERROR
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: error.response.data, status: 500 }
+    });
+  }
+};
+
 // GET PROFILES
 export const getProfiles = () => async dispatch => {
   // SET HEADERS
