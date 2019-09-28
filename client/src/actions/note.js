@@ -154,3 +154,31 @@ export const updateNote = (formData, id) => async dispatch => {
     }
   }
 };
+
+// DELETE NOTE
+export const deleteNote = id => async dispatch => {
+  // SET HEADERS
+  const config = {
+    header: {
+      'Content-Type': 'application/json'
+    }
+  };
+
+  try {
+    const res = await axios.delete(`${uri}/api/notes/${id}`, config);
+
+    // DISPATCH REMOVE NOTE
+    dispatch({ type: REMOVE_NOTE, payload: id });
+  } catch (error) {
+    console.log(error.message);
+
+    // DISPATCH NOTE ERROR
+    dispatch({
+      type: NOTE_ERROR,
+      payload: { msg: error.response.data, status: error.response.status }
+    });
+
+    // DISPATCH SET ALERT
+    dispatch(setAlert(error.response.data, 400, 'danger', 'NOTE_REMOVE_ERROR'));
+  }
+};

@@ -5,7 +5,16 @@ import PropTypes from 'prop-types';
 // COMPONENTS
 import EditNoteModal from '../modals/EditNoteModal';
 
-const Note = ({ note }) => {
+// REDUX
+import { deleteNote } from '../../actions/note';
+import setAlert from '../../actions/alert';
+
+const Note = ({ note, deleteNote, setAlert }) => {
+  const onHandleDelete = id => {
+    deleteNote(id);
+    setAlert('A note has been successfully delete!', 200, 'success');
+  };
+
   return (
     <div
       className='Note'
@@ -25,7 +34,11 @@ const Note = ({ note }) => {
         <Fragment>
           <EditNoteModal note={note} />
         </Fragment>
-        <a href='#!' className='btn btn-sm btn-outline-danger'>
+        <a
+          href='#!'
+          className='btn btn-sm btn-outline-danger'
+          onClick={e => onHandleDelete(note._id)}
+        >
           Delete
         </a>
       </div>
@@ -33,9 +46,12 @@ const Note = ({ note }) => {
   );
 };
 
-const mapStateToProps = state => ({});
+Note.propTypes = {
+  deleteNote: PropTypes.func.isRequired,
+  setAlert: PropTypes.func.isRequired
+};
 
 export default connect(
-  mapStateToProps,
-  null
+  null,
+  { deleteNote, setAlert }
 )(Note);
