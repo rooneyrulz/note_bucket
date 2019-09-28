@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import avatar from '../../assets/default.png';
 
 const Profile = ({ profile }) => {
@@ -21,9 +22,9 @@ const Profile = ({ profile }) => {
         <p className='lead mb-0'>{profile.name}</p>
         <span className='text-muted'>{profile.profession}</span>
       </div>
-      <a href='' className='btn btn-sm btn-light'>
+      <Link to={`/profiles/${profile._id}`} className='btn btn-sm btn-light'>
         Check
-      </a>
+      </Link>
     </div>
   );
 };

@@ -29,10 +29,10 @@ export const getCurrentProfile = () => async dispatch => {
     console.log(error.message);
 
     // DISPACH PROFILE ERROR
-    dispatch({
-      type: PROFILE_ERROR,
-      payload: { msg: error.response.data, status: 500 }
-    });
+    // dispatch({
+    //   type: PROFILE_ERROR,
+    //   payload: { msg: error.response.data, status: 500 }
+    // });
   }
 };
 
@@ -57,9 +57,34 @@ export const getProfiles = () => async dispatch => {
     console.log(error.message);
 
     // DISPATCH PROFILE ERROR
-    dispatch({
-      type: PROFILE_ERROR,
-      payload: { msg: error.response.data, status: 500 }
-    });
+    // dispatch({
+    //   type: PROFILE_ERROR,
+    //   payload: { msg: error.response.data, status: 500 }
+    // });
+  }
+};
+
+// GET PROFILE BY ID
+export const getProfile = id => async dispatch => {
+  // SET HEADERS
+  const config = {
+    header: {
+      'Content-Types': 'application/json'
+    }
+  };
+
+  try {
+    const { data } = await axios.get(`${uri}/api/profiles/${id}`, config);
+
+    // DISPATCH GET PROFILE
+    dispatch({ type: GET_PROFILE, payload: data });
+  } catch (error) {
+    console.log(error.message);
+
+    // DISPATCH PROFILE ERROR
+    // dispatch({
+    //   type: PROFILE_ERROR,
+    //   payload: { msg: error.response.data, status: 500 }
+    // });
   }
 };

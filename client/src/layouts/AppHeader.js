@@ -53,8 +53,18 @@ const AppHeader = ({ isAuthenticated }) => {
                   </NavLink>
                 </NavItem>
                 <NavItem>
+                  <NavLink className='nav-link' exact to='/profiles'>
+                    Profiles
+                  </NavLink>
+                </NavItem>
+                <NavItem>
                   <NavLink className='nav-link' exact to='/notes'>
                     Notes
+                  </NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink className='nav-link' exact to='/about'>
+                    About
                   </NavLink>
                 </NavItem>
               </Fragment>
