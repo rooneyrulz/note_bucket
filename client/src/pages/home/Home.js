@@ -9,7 +9,17 @@ const Home = ({ isAuthenticated, history }) => {
   return (
     <div className='Home'>
       <Jumbotron style={{ background: 'transparent' }}>
-        <h1 className='text-primary display-4'>Home</h1>
+        <h1 className='text-info display-4'>Note Bucket</h1>
+        <br />
+        <br />
+        <div className='btn-group'>
+          <a href='' className='btn btn-lg btn-info'>
+            Register
+          </a>
+          <a href='' className='btn btn-lg btn-outline-secondary'>
+            Log In
+          </a>
+        </div>
       </Jumbotron>
     </div>
   );

@@ -6,7 +6,7 @@ export default (
   status,
   alertType,
   textId = null,
-  timeout = 5000
+  timeout = 3000
 ) => dispatch => {
   const id = uuid.v4();
 

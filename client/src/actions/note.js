@@ -35,16 +35,6 @@ export const getNotes = () => async dispatch => {
       type: NOTE_ERROR,
       payload: { msg: error.response.data, status: error.response.status }
     });
-
-    // DISPATCH SET ALERT
-    // dispatch(
-    //   setAlert(
-    //     error.response.data,
-    //     error.response.status,
-    //     'danger',
-    //     'NOTE_ERROR'
-    //   )
-    // );
   }
 };
 
@@ -85,26 +75,24 @@ export const addNote = (formData, history) => async dispatch => {
     history.push('/notes');
   } catch (error) {
     // DISPATCH NOTE_ERROR
-    if (error.response) {
-      dispatch({
-        type: NOTE_ERROR,
-        payload: {
-          msg: error.response.data,
-          status: error.response.status
-        }
-      });
-
-      if (error.response.data.errors) {
-        const { errors } = error.response.data;
-
-        errors.map(error =>
-          dispatch(setAlert(error.msg, 400, 'danger', 'NOTE_CREATE_ERROR'))
-        );
-      } else {
-        dispatch(
-          setAlert(error.response.data, 400, 'danger', 'NOTE_CREATE_ERROR')
-        );
+    dispatch({
+      type: NOTE_ERROR,
+      payload: {
+        msg: error.response.data,
+        status: error.response.status
       }
+    });
+
+    if (error.response.data.errors) {
+      const { errors } = error.response.data;
+
+      errors.map(error =>
+        dispatch(setAlert(error.msg, 400, 'danger', 'NOTE_CREATE_ERROR'))
+      );
+    } else {
+      dispatch(
+        setAlert(error.response.data, 400, 'danger', 'NOTE_CREATE_ERROR')
+      );
     }
   }
 };
@@ -131,26 +119,24 @@ export const updateNote = (formData, id) => async dispatch => {
     console.log(error.message);
 
     // DISPATCH NOTE_ERROR
-    if (error.response) {
-      dispatch({
-        type: NOTE_ERROR,
-        payload: {
-          msg: error.response.data,
-          status: error.response.status
-        }
-      });
-
-      if (error.response.data.errors) {
-        const { errors } = error.response.data;
-
-        errors.map(error =>
-          dispatch(setAlert(error.msg, 400, 'danger', 'NOTE_UPDATE_ERROR'))
-        );
-      } else {
-        dispatch(
-          setAlert(error.response.data, 400, 'danger', 'NOTE_UPDATE_ERROR')
-        );
+    dispatch({
+      type: NOTE_ERROR,
+      payload: {
+        msg: error.response.data,
+        status: error.response.status
       }
+    });
+
+    if (error.response.data.errors) {
+      const { errors } = error.response.data;
+
+      errors.map(error =>
+        dispatch(setAlert(error.msg, 400, 'danger', 'NOTE_UPDATE_ERROR'))
+      );
+    } else {
+      dispatch(
+        setAlert(error.response.data, 400, 'danger', 'NOTE_UPDATE_ERROR')
+      );
     }
   }
 };

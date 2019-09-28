@@ -5,7 +5,8 @@ import {
   REGISTER_FAIL,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
-  LOGOUT
+  LOGOUT,
+  DELETE_ACCOUNT
 } from '../actions/types';
 
 const initialState = {
@@ -40,6 +41,7 @@ export default (state = initialState, action) => {
     case REGISTER_FAIL:
     case LOGIN_FAIL:
     case AUTH_ERROR:
+    case DELETE_ACCOUNT:
     case LOGOUT:
       localStorage.clear();
       return {
