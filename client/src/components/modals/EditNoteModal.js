@@ -51,6 +51,8 @@ const EditNoteModal = ({ note, updateNote, setAlert, alert }) => {
       }
 
       setAlert('Note has been successfully updated!', 200, 'success');
+
+      setFormData({ ...formData, title: '', text: '' });
     }
   };
 
@@ -97,7 +99,7 @@ const EditNoteModal = ({ note, updateNote, setAlert, alert }) => {
               />
               <small className='text-muted'>Old description: {note.text}</small>
             </FormGroup>
-            <Button block color='outline-dark' type='submit'>
+            <Button block color='dark' type='submit'>
               Update
             </Button>
           </Form>

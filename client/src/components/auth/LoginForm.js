@@ -90,10 +90,10 @@ const LoginForm = ({
             />
           </FormGroup>
           <ButtonGroup>
-            <Button className='btn-lg' type='submit' color='info'>
+            <Button className='btn-lg' type='submit' color='outline-info'>
               Sign In
             </Button>
-            <Button className='btn-lg' type='button' color='light'>
+            <Button className='btn-lg' type='button' color='outline-light'>
               Back
             </Button>
           </ButtonGroup>

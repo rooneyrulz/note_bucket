@@ -115,10 +115,10 @@ const RegisterForm = ({
             />
           </FormGroup>
           <ButtonGroup>
-            <Button className='btn-lg' type='submit' color='success'>
+            <Button className='btn-lg' type='submit' color='outline-success'>
               Sign Up
             </Button>
-            <Button className='btn-lg' type='button' color='light'>
+            <Button className='btn-lg' type='button' color='outline-light'>
               Back
             </Button>
           </ButtonGroup>

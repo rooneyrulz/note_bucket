@@ -36,7 +36,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        notes: [...state.posts, payload]
+        notes: [...state.notes, payload]
       };
 
     case UPDATE_NOTE:
@@ -44,7 +44,7 @@ export default (state = initialState, action) => {
         ...state,
         loading: false,
         notes: state.notes.map(note =>
-          note.id === payload.id ? { ...payload.note } : note
+          note._id === payload.id ? { ...payload.note } : note
         )
       };
 
@@ -52,7 +52,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        notes: state.notes.filter(note => note.id !== payload)
+        notes: state.notes.filter(note => note._id !== payload)
       };
 
     case NOTE_ERROR:

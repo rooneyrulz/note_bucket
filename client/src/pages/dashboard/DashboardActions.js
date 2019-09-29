@@ -5,18 +5,15 @@ import { connect } from 'react-redux';
 const DashboardActions = ({ auth: { user } }) => {
   return (
     <Fragment>
-      <Link to='/notes' className='btn btn-lg btn-info'>
+      <Link to='/notes' className='btn btn-lg btn-outline-info'>
         Create Notes
       </Link>
       {user.profile ? (
-        <Link to='/profiles/me' className='btn btn-lg btn-outline-secondary'>
+        <Link to='/profiles/me' className='btn btn-lg btn-outline-dark'>
           Visit Profile
         </Link>
       ) : (
-        <Link
-          to='/profiles/create'
-          className='btn btn-lg btn-outline-secondary'
-        >
+        <Link to='/profiles/create' className='btn btn-lg btn-outline-dark'>
           Create Profile
         </Link>
       )}

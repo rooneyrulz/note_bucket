@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Jumbotron } from 'reactstrap';
@@ -13,12 +14,12 @@ const Home = ({ isAuthenticated, history }) => {
         <br />
         <br />
         <div className='btn-group'>
-          <a href='' className='btn btn-lg btn-info'>
+          <Link to='/register' className='btn btn-lg btn-info'>
             Register
-          </a>
-          <a href='' className='btn btn-lg btn-outline-secondary'>
+          </Link>
+          <Link to='/sign-in' className='btn btn-lg btn-outline-dark'>
             Log In
-          </a>
+          </Link>
         </div>
       </Jumbotron>
     </div>

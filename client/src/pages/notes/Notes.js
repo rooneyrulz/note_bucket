@@ -28,7 +28,9 @@ const Notes = ({ note: { notes, loading }, getNotes, history }) => {
           alignItems: 'center'
         }}
       >
-        <h1 className='text-info'>Notes</h1>
+        <h2 style={{ fontWeight: 'bold' }} className='text-info'>
+          Notes
+        </h2>
         <div>
           <CreateNoteModal />
         </div>

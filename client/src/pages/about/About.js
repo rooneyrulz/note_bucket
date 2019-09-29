@@ -8,7 +8,7 @@ const About = () => {
       </h2>
       <hr />
       <br />
-      <p className='lead'>
+      <p className=''>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam atque in,
         delectus sed officiis blanditiis consequuntur fuga dicta veritatis
         assumenda autem. Sed nihil eaque minus odio, quisquam fuga ullam sit

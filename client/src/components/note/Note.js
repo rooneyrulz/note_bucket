@@ -36,7 +36,7 @@ const Note = ({ note, deleteNote, setAlert }) => {
         </Fragment>
         <a
           href='#!'
-          className='btn btn-sm btn-outline-danger'
+          className='btn btn-sm btn-danger'
           onClick={e => onHandleDelete(note._id)}
         >
           Delete

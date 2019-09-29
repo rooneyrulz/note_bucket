@@ -23,7 +23,9 @@ const AppHeader = ({ isAuthenticated }) => {
   return (
     <Navbar dark color='dark' expand='lg'>
       <Container>
-        <NavbarBrand href='#!'>Note Bucket</NavbarBrand>
+        <NavbarBrand href={isAuthenticated ? '/dashboard' : '/home'}>
+          Note Bucket
+        </NavbarBrand>
         <NavbarToggler onClick={e => toggle(e)} />
         <Collapse navbar isOpen={isOpen}>
           <Nav navbar className='ml-auto'>

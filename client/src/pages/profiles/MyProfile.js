@@ -40,7 +40,7 @@ const MyProfile = ({
           <Link to='/profiles/edit' className='btn btn-outline-info'>
             Edit
           </Link>
-          <Link to='/dashboard' className='btn btn-dark'>
+          <Link to='/dashboard' className='btn btn-outline-dark'>
             Back
           </Link>
         </div>
@@ -49,7 +49,11 @@ const MyProfile = ({
       <br />
       <div className='row'>
         <div className='col-sm-6'>
-          <img src={avatar} alt='' />
+          <img
+            style={{ width: '400px', height: '400px' }}
+            src={avatar}
+            alt=''
+          />
           <br />
           <br />
           <h4 style={{ fontWeight: 'bold' }}>{profile.name}</h4>

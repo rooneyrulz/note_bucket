@@ -51,6 +51,8 @@ const CreateNoteModal = ({ alert, setAlert, addNote }) => {
       }
 
       setAlert('A note has been successfully created!', 201, 'success');
+
+      setFormData({ ...formData, title: '', text: '' });
     }
   };
 
@@ -90,7 +92,7 @@ const CreateNoteModal = ({ alert, setAlert, addNote }) => {
                 onChange={e => onHandleChange(e)}
               />
             </FormGroup>
-            <Button block color='outline-success' type='submit'>
+            <Button block color='success' type='submit'>
               Create
             </Button>
           </Form>

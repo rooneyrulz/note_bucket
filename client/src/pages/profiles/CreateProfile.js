@@ -24,7 +24,7 @@ const CreateProfile = ({ auth: { user }, profile: { loading }, history }) => {
           Create Profile
         </h2>
         <div className='btn-group'>
-          <Link to='/dashboard' className='btn btn-dark'>
+          <Link to='/dashboard' className='btn btn-outline-dark'>
             Back
           </Link>
         </div>

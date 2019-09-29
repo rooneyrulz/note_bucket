@@ -14,7 +14,8 @@ const Profile = ({ profile }) => {
         alignItems: 'center',
         color: '#f4f4f4',
         padding: '1rem',
-        borderRadius: '.5em'
+        borderRadius: '.5em',
+        border: '1px #000 solid'
       }}
       className='profile-item bg-dark'
     >

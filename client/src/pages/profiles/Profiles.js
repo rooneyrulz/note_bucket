@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 // COMPONENTS
@@ -8,7 +9,11 @@ import Spinner from '../../layouts/Spinner';
 // REDUX
 import { getProfiles } from '../../actions/profile';
 
-const Profiles = ({ profile: { profiles, loading }, getProfiles }) => {
+const Profiles = ({
+  auth: { user },
+  profile: { profiles, loading },
+  getProfiles
+}) => {
   useEffect(() => {
     // setInterval(() => getProfiles(), 500);
     getProfiles();
@@ -18,11 +23,24 @@ const Profiles = ({ profile: { profiles, loading }, getProfiles }) => {
     <Spinner />
   ) : (
     <div className='Profiles'>
-      <div className='profile-header'>
+      <header
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          alignItems: 'center'
+        }}
+        className='profile-header'
+      >
         <h2 style={{ fontWeight: 'bold' }} className='text-info'>
           Profiles
         </h2>
-      </div>
+        {user && !user.profile && (
+          <Link className='btn btn-outline-info' to='/profiles/create'>
+            Create Profile
+          </Link>
+        )}
+      </header>
       <hr />
       <br />
       {profiles.length < 1 ? (
@@ -35,7 +53,8 @@ const Profiles = ({ profile: { profiles, loading }, getProfiles }) => {
 };
 
 const mapStateToProps = state => ({
-  profile: state.profile
+  profile: state.profile,
+  auth: state.auth
 });
 
 export default connect(
