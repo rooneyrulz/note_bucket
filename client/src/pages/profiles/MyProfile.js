@@ -37,10 +37,10 @@ const MyProfile = ({
           My Profile
         </h2>
         <div className='btn-group'>
-          <Link to='#!' className='btn btn-outline-info'>
+          <Link to='/profiles/edit' className='btn btn-outline-info'>
             Edit
           </Link>
-          <Link to='#!' className='btn btn-dark'>
+          <Link to='/dashboard' className='btn btn-dark'>
             Back
           </Link>
         </div>

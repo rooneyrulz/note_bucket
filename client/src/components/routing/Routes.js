@@ -14,6 +14,7 @@ import Profiles from '../../pages/profiles/Profiles';
 import Profile from '../../pages/profiles/Profile';
 import MyProfile from '../../pages/profiles/MyProfile';
 import CreateProfile from '../../pages/profiles/CreateProfile';
+import EditProfile from '../../pages/profiles/EditProfile';
 
 import PrivateRoute from '../../components/routing/PrivateRoute';
 
@@ -46,6 +47,7 @@ const Routes = ({ alert }) => (
         <Route exact path='/sign-in' component={Login} />
         <PrivateRoute exact path='/profiles/me' component={MyProfile} />
         <PrivateRoute exact path='/profiles/create' component={CreateProfile} />
+        <PrivateRoute exact path='/profiles/edit' component={EditProfile} />
         <PrivateRoute exact path='/profiles/:id' component={Profile} />
       </Switch>
     </Fragment>

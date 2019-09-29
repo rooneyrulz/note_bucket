@@ -5,10 +5,10 @@ import PropTypes from 'prop-types';
 
 // COMPONENTS
 import Spinner from '../../layouts/Spinner';
-import CreateProfileForm from '../../components/profile-forms/CreateProfileForm';
+import EditProfileForm from '../../components/profile-forms/EditProfileForm';
 
-const CreateProfile = ({ auth: { user }, profile: { loading }, history }) => {
-  if (user.profile) history.push('/dashboard');
+const EditProfile = ({ auth: { user }, profile: { loading }, history }) => {
+  if (user.profile === null) history.push('/dashboard');
 
   return (
     <div className='my-profile'>
@@ -21,7 +21,7 @@ const CreateProfile = ({ auth: { user }, profile: { loading }, history }) => {
         }}
       >
         <h2 style={{ fontWeight: 'bold' }} className='text-info'>
-          Create Profile
+          Update Profile
         </h2>
         <div className='btn-group'>
           <Link to='/dashboard' className='btn btn-dark'>
@@ -32,13 +32,13 @@ const CreateProfile = ({ auth: { user }, profile: { loading }, history }) => {
       <hr />
       <br />
       <Fragment>
-        <CreateProfileForm />
+        <EditProfileForm />
       </Fragment>
     </div>
   );
 };
 
-CreateProfile.propTypes = {
+EditProfile.propTypes = {
   auth: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired
 };
@@ -48,4 +48,4 @@ const mapStateToProps = state => ({
   profile: state.profile
 });
 
-export default connect(mapStateToProps)(CreateProfile);
+export default connect(mapStateToProps)(EditProfile);
