@@ -147,3 +147,42 @@ export const changeProfile = (
     }
   }
 };
+
+// DELETE PROFILE / ACCOUNT
+export const deleteProfile = (id, history) => async dispatch => {
+  // SET HEADER
+  const config = {
+    header: {
+      'Content-Type': 'application/json'
+    }
+  };
+
+  if (
+    window.confirm(
+      'Are you sure you wanna delete your account? This action can not be undone!'
+    )
+  ) {
+    try {
+      const res = await axios.delete(`${uri}/api/profiles/${id}`, config);
+
+      // DISPATCH DELETE PROFILE & CLEAR PROFILE
+      dispatch({ type: CLEAR_PROFILE });
+      dispatch({ type: DELETE_PROFILE, payload: id });
+
+      // DISPATCH SET ALERT
+      dispatch(
+        setAlert('Account has been permenently deleted!', 200, 'success')
+      );
+
+      history.push('/home');
+    } catch (error) {
+      console.log(error.message);
+
+      // DISPATCH PROFILE ERROR
+      dispatch({
+        type: PROFILE_ERROR,
+        payload: { msg: error.response.data, status: 500 }
+      });
+    }
+  }
+};

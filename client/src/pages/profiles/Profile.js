@@ -38,7 +38,7 @@ const Profile = ({
           Profile Details
         </h2>
         <div className='btn-group'>
-          <Link to='#!' className='btn btn-dark'>
+          <Link to='/dashboard' className='btn btn-dark'>
             Back
           </Link>
         </div>

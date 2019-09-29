@@ -14,10 +14,16 @@ import {
 } from 'reactstrap';
 
 // REDUX
-import { changeProfile } from '../../actions/profile';
+import { changeProfile, getCurrentProfile } from '../../actions/profile';
 import setAlert from '../../actions/alert';
 
-const EditProfileForm = ({ changeProfile, history }) => {
+const EditProfileForm = ({
+  profile: { profile, loading },
+  changeProfile,
+  setAlert,
+  getCurrentProfile,
+  history
+}) => {
   const [formData, setFormData] = useState({
     name: '',
     company: '',
@@ -35,6 +41,29 @@ const EditProfileForm = ({ changeProfile, history }) => {
     instagram: '',
     github: ''
   });
+
+  useEffect(() => {
+    getCurrentProfile();
+
+    setFormData({
+      ...formData,
+      name: loading || !profile.name ? '' : profile.name,
+      company: loading || !profile.company ? '' : profile.company,
+      website: loading || !profile.website ? '' : profile.website,
+      status: loading || !profile.status ? '' : profile.status,
+      location: loading || !profile.location ? '' : profile.location,
+      age: loading || !profile.age ? '' : profile.age,
+      profession: loading || !profile.profession ? '' : profile.profession,
+      bio: loading || !profile.bio ? '' : profile.bio,
+      youtube: loading || !profile.social ? '' : profile.social.youtube,
+      twitter: loading || !profile.twitter ? '' : profile.social.twitter,
+      facebook: loading || !profile.social ? '' : profile.social.facebook,
+      linkedin: loading || !profile.social ? '' : profile.social.linkedin,
+      instagram: loading || !profile.social ? '' : profile.social.instagram,
+      github: loading || !profile.social ? '' : profile.social.github,
+      skills: loading || !profile.skills ? '' : profile.skills.join(',')
+    });
+  }, [getCurrentProfile, loading]);
 
   const {
     name,
@@ -336,18 +365,24 @@ const EditProfileForm = ({ changeProfile, history }) => {
           </Col>
         </Row>
       </Collapse>
-      <Button type='submit' color='outline-success' className='btn-lg'>
-        Create
+      <Button type='submit' color='outline-secondary' className='btn-lg'>
+        Update
       </Button>
     </Form>
   );
 };
 
 EditProfileForm.propTypes = {
-  changeProfile: PropTypes.func.isRequired
+  changeProfile: PropTypes.func.isRequired,
+  getCurrentProfile: PropTypes.func.isRequired,
+  setAlert: PropTypes.func.isRequired
 };
 
+const mapStateToProps = state => ({
+  profile: state.profile
+});
+
 export default connect(
-  null,
-  { changeProfile }
+  mapStateToProps,
+  { changeProfile, getCurrentProfile, setAlert }
 )(EditProfileForm);

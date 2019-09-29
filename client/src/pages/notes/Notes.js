@@ -12,8 +12,8 @@ import { getNotes } from '../../actions/note';
 
 const Notes = ({ note: { notes, loading }, getNotes, history }) => {
   useEffect(() => {
-    // setInterval(() => getNotes(), 500);
-    getNotes();
+    setInterval(() => getNotes(), 500);
+    // getNotes();
   }, []);
 
   return loading ? (

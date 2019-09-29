@@ -17,7 +17,7 @@ import {
 import { changeProfile } from '../../actions/profile';
 import setAlert from '../../actions/alert';
 
-const CreateProfileForm = ({ changeProfile, history }) => {
+const CreateProfileForm = ({ changeProfile, setAlert, history }) => {
   const [formData, setFormData] = useState({
     name: '',
     company: '',
@@ -58,6 +58,7 @@ const CreateProfileForm = ({ changeProfile, history }) => {
     }
 
     changeProfile(formData, history);
+    setAlert('A profile has been successfully created!', 201, 'success');
   };
 
   return (
@@ -318,5 +319,5 @@ CreateProfileForm.propTypes = {
 
 export default connect(
   null,
-  { changeProfile }
+  { changeProfile, setAlert }
 )(CreateProfileForm);
