@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -13,7 +13,11 @@ import {
   Collapse
 } from 'reactstrap';
 
-const CreateProfileForm = () => {
+// REDUX
+import { changeProfile } from '../../actions/profile';
+import setAlert from '../../actions/alert';
+
+const CreateProfileForm = ({ changeProfile, history }) => {
   const [formData, setFormData] = useState({
     name: '',
     company: '',
@@ -43,7 +47,17 @@ const CreateProfileForm = () => {
 
   const onHandleSubmit = e => {
     e.preventDefault();
-    console.log(formData);
+
+    if (!name || !status || !location || !profession) {
+      setAlert(
+        'Please fill out required fields!',
+        400,
+        'danger',
+        'PROFILE_CREATE_ERROR'
+      );
+    }
+
+    changeProfile(formData, history);
   };
 
   return (
@@ -298,4 +312,11 @@ const CreateProfileForm = () => {
   );
 };
 
-export default CreateProfileForm;
+CreateProfileForm.propTypes = {
+  changeProfile: PropTypes.func.isRequired
+};
+
+export default connect(
+  null,
+  { changeProfile }
+)(CreateProfileForm);

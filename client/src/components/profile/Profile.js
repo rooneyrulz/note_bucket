@@ -9,6 +9,7 @@ const Profile = ({ profile }) => {
         display: 'grid',
         gridTemplateColumns: '1fr 1fr 1fr',
         gridGap: '1rem',
+        marginBottom: '1em',
         justifyContent: 'center',
         alignItems: 'center',
         color: '#f4f4f4',

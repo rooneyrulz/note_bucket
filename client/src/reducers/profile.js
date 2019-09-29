@@ -1,7 +1,6 @@
 import {
   GET_PROFILES,
   GET_PROFILE,
-  CREATE_PROFILE,
   UPDATE_PROFILE,
   DELETE_PROFILE,
   PROFILE_ERROR,
@@ -32,13 +31,6 @@ export default (state = initialState, action) => {
         ...state,
         loading: false,
         profile: payload
-      };
-
-    case CREATE_PROFILE:
-      return {
-        ...state,
-        loading: false,
-        profiles: [...state.profiles, payload]
       };
 
     case CLEAR_PROFILE:

@@ -15,7 +15,6 @@ export const REMOVE_NOTE = 'DELETE_NOTE';
 export const NOTE_ERROR = 'NOTE_ERROR';
 export const GET_PROFILES = 'GET_PROFILES';
 export const GET_PROFILE = 'GET_PROFILE';
-export const CREATE_PROFILE = 'CREATE_PROFILE';
 export const UPDATE_PROFILE = 'UPDATE_PROFILE';
 export const CLEAR_PROFILE = 'CLEAR_PROFILE';
 export const DELETE_PROFILE = 'DELETE_PROFILE';

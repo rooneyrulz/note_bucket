@@ -2,12 +2,13 @@ import axios from 'axios';
 import {
   GET_PROFILES,
   GET_PROFILE,
-  CREATE_PROFILE,
   UPDATE_PROFILE,
   CLEAR_PROFILE,
   DELETE_PROFILE,
   PROFILE_ERROR
 } from './types';
+
+import setAlert from './alert';
 
 const uri = 'http://localhost:5000';
 
@@ -29,10 +30,10 @@ export const getCurrentProfile = () => async dispatch => {
     console.log(error.message);
 
     // DISPACH PROFILE ERROR
-    // dispatch({
-    //   type: PROFILE_ERROR,
-    //   payload: { msg: error.response.data, status: 500 }
-    // });
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: error.response.data, status: 500 }
+    });
   }
 };
 
@@ -57,10 +58,10 @@ export const getProfiles = () => async dispatch => {
     console.log(error.message);
 
     // DISPATCH PROFILE ERROR
-    // dispatch({
-    //   type: PROFILE_ERROR,
-    //   payload: { msg: error.response.data, status: 500 }
-    // });
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: error.response.data, status: 500 }
+    });
   }
 };
 
@@ -82,9 +83,67 @@ export const getProfile = id => async dispatch => {
     console.log(error.message);
 
     // DISPATCH PROFILE ERROR
-    // dispatch({
-    //   type: PROFILE_ERROR,
-    //   payload: { msg: error.response.data, status: 500 }
-    // });
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: error.response.data, status: 500 }
+    });
+  }
+};
+
+// CHANGE PROFILE
+export const changeProfile = (
+  formData,
+  history,
+  edit = false
+) => async dispatch => {
+  // SET HEADERS
+  const config = {
+    header: {
+      'Content-Type': 'application/json'
+    }
+  };
+
+  try {
+    const { data } = await axios.post(
+      `${uri}/api/profiles/change`,
+      formData,
+      config
+    );
+
+    // DIPATCH UPDATE PROFILE
+    dispatch({ type: UPDATE_PROFILE, payload: data });
+
+    // DISPATCH SET ALERT
+    dispatch(
+      edit
+        ? setAlert('Profile has been successfully updated!', 200, 'success')
+        : setAlert('Profile has been successfully created!', 201, 'success')
+    );
+
+    // history.push('/profiles');
+    return (window.location.href = '/profiles');
+  } catch (error) {
+    console.log(error.message);
+
+    if (error.response) {
+      // DISPATCH PROFILE ERROR
+      dispatch({
+        type: PROFILE_ERROR,
+        payload: { msg: error.response.data, status: 400 }
+      });
+
+      // DISPATCH SET ALERT
+      if (error.response.data.errors) {
+        const { errors } = error.response.data;
+
+        errors.map(error =>
+          dispatch(setAlert(error.msg, 400, 'danger', 'PROFILE_CREATE_ERROR'))
+        );
+      } else {
+        dispatch(
+          setAlert(error.response.data, 400, 'danger', 'PROFILE_CREATE_ERROR')
+        );
+      }
+    }
   }
 };
