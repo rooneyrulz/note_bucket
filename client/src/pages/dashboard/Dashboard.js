@@ -15,7 +15,6 @@ const Dashboard = ({ auth: { user, loading } }) => {
           <h1 className='display-4 mb-0'>Dashboard</h1>
           <br />
           <p className='lead'>Welcome {user.username}</p>
-          <br />
           {!user.profile && (
             <p className='lead'>
               It seems you have not setup your profile yet, Let's create one!

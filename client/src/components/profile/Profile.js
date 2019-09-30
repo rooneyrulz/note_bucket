@@ -19,7 +19,7 @@ const Profile = ({ profile }) => {
       }}
       className='profile-item'
     >
-      <img style={{ width: '120px', height: '120px' }} src={avatar} alt='' />
+      <img style={{ width: '120px', height: '120px', borderRadius: '3rem' }} src={avatar} alt='' />
       <div className='profile-details'>
         <h4 className=''>{profile.name}</h4>
         <p className='lead mb-0'>{profile.location}</p>
