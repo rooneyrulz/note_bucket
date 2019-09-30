@@ -12,6 +12,8 @@ import {
   Collapse
 } from 'reactstrap';
 
+import avatar from '../assets/default.png';
+
 // COMPONENTS
 import LogOut from '../components/auth/LogOut';
 
@@ -21,7 +23,7 @@ const AppHeader = ({ auth: { isAuthenticated, user } }) => {
   const toggle = e => setisOpen(!isOpen);
 
   return (
-    <Navbar dark expand='lg'>
+    <Navbar dark expand='lg' className='py-3'>
       <Container>
         <NavbarBrand href={isAuthenticated ? '/dashboard' : '/home'}>
           Note Bucket
@@ -91,6 +93,16 @@ const AppHeader = ({ auth: { isAuthenticated, user } }) => {
                 {user && user.profile && (
                   <NavItem>
                     <NavLink className='nav-link' exact to='/profiles/me'>
+                      <img
+                        style={{
+                          width: '36px',
+                          height: '36px',
+                          borderRadius: '2rem',
+                          display: 'inline-block'
+                        }}
+                        src={avatar}
+                        alt=''
+                      />{' '}
                       Profile
                     </NavLink>
                   </NavItem>

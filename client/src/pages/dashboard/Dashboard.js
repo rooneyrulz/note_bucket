@@ -12,14 +12,15 @@ const Dashboard = ({ auth: { user, loading } }) => {
     <Fragment>
       <div className='Dashboard'>
         <div className='dashboard-content'>
-          <h1 className='display-4'>Dashboard</h1>
+          <h1 className='display-4 mb-0'>Dashboard</h1>
+          <br />
           <p className='lead'>Welcome {user.username}</p>
+          <br />
           {!user.profile && (
             <p className='lead'>
               It seems you have not setup your profile yet, Let's create one!
             </p>
           )}
-          <br />
           <br />
           <div className='btn-group'>
             <DashboardActions />

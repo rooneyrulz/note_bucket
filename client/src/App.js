@@ -11,6 +11,7 @@ import './App.css';
 
 // COMPONENTS
 import AppHeader from './layouts/AppHeader';
+import AppFooter from './layouts/AppFooter';
 import Routes from './components/routing/Routes';
 
 // REDUX
@@ -38,7 +39,9 @@ const App = () => {
               <Route exact component={Routes} />
             </Switch>
           </main>
-          <footer></footer>
+          <footer>
+            <AppFooter />
+          </footer>
         </Fragment>
       </Router>
     </Provider>
