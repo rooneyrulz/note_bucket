@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { Fragment, useState } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -17,7 +17,7 @@ import {
 } from 'reactstrap';
 
 // REDUX
-import { registerUser, loginUser } from '../../actions/auth';
+import { registerUser } from '../../actions/auth';
 import setAlert from '../../actions/alert';
 
 const RegisterForm = ({

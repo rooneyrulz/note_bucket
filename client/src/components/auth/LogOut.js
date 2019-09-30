@@ -11,7 +11,7 @@ const LogOut = ({ logOutUser, history }) => {
   };
 
   return (
-    <NavLink className='nav-link' onClick={e => onHandleLogOut(e)}>
+    <NavLink to='#!' className='nav-link' onClick={e => onHandleLogOut(e)}>
       Logout
     </NavLink>
   );

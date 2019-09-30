@@ -15,7 +15,7 @@ import {
 // COMPONENTS
 import LogOut from '../components/auth/LogOut';
 
-const AppHeader = ({ isAuthenticated }) => {
+const AppHeader = ({ auth: { isAuthenticated, user } }) => {
   const [isOpen, setisOpen] = useState(false);
 
   const toggle = e => setisOpen(!isOpen);
@@ -87,9 +87,18 @@ const AppHeader = ({ isAuthenticated }) => {
                 </NavItem>
               </Fragment>
             ) : (
-              <NavItem>
-                <LogOut />
-              </NavItem>
+              <Fragment>
+                {user && user.profile && (
+                  <NavItem>
+                    <NavLink className='nav-link' exact to='/profiles/me'>
+                      Profile
+                    </NavLink>
+                  </NavItem>
+                )}
+                <NavItem>
+                  <LogOut />
+                </NavItem>
+              </Fragment>
             )}
           </Nav>
         </Collapse>
@@ -99,11 +108,11 @@ const AppHeader = ({ isAuthenticated }) => {
 };
 
 AppHeader.propTypes = {
-  isAuthenticated: PropTypes.bool
+  auth: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated
+  auth: state.auth
 });
 
 export default connect(mapStateToProps)(AppHeader);

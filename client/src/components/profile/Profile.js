@@ -21,8 +21,8 @@ const Profile = ({ profile }) => {
     >
       <img style={{ width: '120px', height: '120px' }} src={avatar} alt='' />
       <div className='profile-details'>
-        <p className='lead mb-0'>{profile.name}</p>
-        <span className='text-muted'>{profile.profession}</span>
+        <h4 className=''>{profile.name}</h4>
+        <p className='lead mb-0'>{profile.location}</p>
       </div>
       <Link to={`/profiles/${profile._id}`} className='btn btn-sm btn-light'>
         Check

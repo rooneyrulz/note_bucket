@@ -5,7 +5,8 @@ import {
   UPDATE_PROFILE,
   CLEAR_PROFILE,
   DELETE_PROFILE,
-  PROFILE_ERROR
+  PROFILE_ERROR,
+  DELETE_ACCOUNT
 } from './types';
 
 import setAlert from './alert';
@@ -165,9 +166,10 @@ export const deleteProfile = (id, history) => async dispatch => {
     try {
       const res = await axios.delete(`${uri}/api/profiles/${id}`, config);
 
-      // DISPATCH DELETE PROFILE & CLEAR PROFILE
+      // DISPATCH DELETE PROFILE & CLEAR PROFILE & DELETE ACCOUNT
       dispatch({ type: CLEAR_PROFILE });
       dispatch({ type: DELETE_PROFILE, payload: id });
+      dispatch({ type: DELETE_ACCOUNT });
 
       // DISPATCH SET ALERT
       dispatch(
@@ -178,11 +180,13 @@ export const deleteProfile = (id, history) => async dispatch => {
     } catch (error) {
       console.log(error.message);
 
-      // DISPATCH PROFILE ERROR
-      dispatch({
-        type: PROFILE_ERROR,
-        payload: { msg: error.response.data, status: 500 }
-      });
+      if (error.response) {
+        // DISPATCH PROFILE ERROR
+        dispatch({
+          type: PROFILE_ERROR,
+          payload: { msg: error.response.data, status: 500 }
+        });
+      }
     }
   }
 };
