@@ -40,6 +40,9 @@ router.post(
     check('name', 'Please enter a valid name!')
       .not()
       .isEmpty(),
+    check('location', 'Please enter location!')
+      .not()
+      .isEmpty(),
     check('status', 'Please enter status!')
       .not()
       .isEmpty(),

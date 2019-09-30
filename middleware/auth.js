@@ -1,12 +1,12 @@
 import { verify } from 'jsonwebtoken';
 
-export default async (req, res, next) => {
+export default (req, res, next) => {
   const token = req.header('X-Auth-Token');
 
   if (!token) return res.status(401).send('Access denied, No token provided!');
 
   try {
-    const decoded = await verify(token, process.env.JWT_KEY);
+    const decoded = verify(token, process.env.JWT_KEY);
 
     if (!decoded)
       return res.status(401).send('Access denied, Invalid token provided!');
