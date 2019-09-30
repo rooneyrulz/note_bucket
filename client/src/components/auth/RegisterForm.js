@@ -56,7 +56,7 @@ const RegisterForm = ({
   if (isAuthenticated) history.push('/dashboard');
 
   return (
-    <Card color='dark' style={{ width: '60%', margin: 'auto' }}>
+    <Card style={{ width: '60%', margin: 'auto', background: '#24334e' }}>
       <CardHeader className='text-center'>
         <CardTitle>
           <h1 className='text-light'>Sign Up</h1>

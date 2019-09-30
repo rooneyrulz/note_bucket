@@ -51,7 +51,7 @@ const LoginForm = ({
   if (isAuthenticated) history.push('/dashboard');
 
   return (
-    <Card color='dark' style={{ width: '60%', margin: 'auto' }}>
+    <Card style={{ width: '60%', margin: 'auto', background: '#24334e' }}>
       <CardHeader className='text-center'>
         <CardTitle>
           <h1 className='text-light'>Sign In</h1>
@@ -90,7 +90,7 @@ const LoginForm = ({
             />
           </FormGroup>
           <ButtonGroup>
-            <Button className='btn-lg' type='submit' color='outline-info'>
+            <Button className='btn-lg' type='submit' color='outline-primary'>
               Sign In
             </Button>
             <Button className='btn-lg' type='button' color='outline-light'>

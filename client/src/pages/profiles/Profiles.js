@@ -32,11 +32,11 @@ const Profiles = ({
         }}
         className='profile-header'
       >
-        <h2 style={{ fontWeight: 'bold' }} className='text-info'>
+        <h2 style={{ fontWeight: 'bold' }} className='page-heading'>
           Profiles
         </h2>
         {user && !user.profile && (
-          <Link className='btn btn-outline-info' to='/profiles/create'>
+          <Link className='btn btn-outline-success' to='/profiles/create'>
             Create Profile
           </Link>
         )}

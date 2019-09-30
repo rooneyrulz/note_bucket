@@ -46,7 +46,6 @@ const EditProfileForm = ({
     getCurrentProfile();
 
     setFormData({
-      ...formData,
       name: loading || !profile.name ? '' : profile.name,
       company: loading || !profile.company ? '' : profile.company,
       website: loading || !profile.website ? '' : profile.website,
@@ -365,7 +364,7 @@ const EditProfileForm = ({
           </Col>
         </Row>
       </Collapse>
-      <Button type='submit' color='outline-secondary' className='btn-lg'>
+      <Button color='outline-dark' type='submit' className='btn btn-lg'>
         Update
       </Button>
     </Form>

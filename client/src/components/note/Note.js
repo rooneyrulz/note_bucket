@@ -23,7 +23,7 @@ const Note = ({ note, deleteNote, setAlert }) => {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        background: '#333',
+        background: '#24334e',
         padding: '1rem',
         color: '#f4f4f4',
         borderRadius: '.5em'

@@ -58,7 +58,6 @@ const CreateProfileForm = ({ changeProfile, setAlert, history }) => {
     }
 
     changeProfile(formData, history);
-    setAlert('A profile has been successfully created!', 201, 'success');
   };
 
   return (
@@ -306,7 +305,7 @@ const CreateProfileForm = ({ changeProfile, setAlert, history }) => {
           </Col>
         </Row>
       </Collapse>
-      <Button type='submit' color='outline-success' className='btn-lg'>
+      <Button color='outline-success' type='submit' className='btn btn-lg'>
         Create
       </Button>
     </Form>

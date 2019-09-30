@@ -3,7 +3,7 @@ import React from 'react';
 const About = () => {
   return (
     <div className='About'>
-      <h2 style={{ fontWeight: 'bold' }} className='text-info'>
+      <h2 style={{ fontWeight: 'bold' }} className='page-heading'>
         About
       </h2>
       <hr />

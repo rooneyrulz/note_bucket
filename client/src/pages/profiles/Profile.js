@@ -36,11 +36,11 @@ const Profile = ({
           alignItems: 'center'
         }}
       >
-        <h2 style={{ fontWeight: 'bold' }} className='text-info mb-0'>
+        <h2 style={{ fontWeight: 'bold' }} className='page-heading  mb-0'>
           {profile.name}
         </h2>
         <div className='btn-group'>
-          <Link to='/dashboard' className='btn btn-outline-dark'>
+          <Link to='/dashboard' className='btn btn-blue'>
             Back
           </Link>
         </div>

@@ -15,9 +15,9 @@ const Profile = ({ profile }) => {
         color: '#f4f4f4',
         padding: '1rem',
         borderRadius: '.5em',
-        border: '1px #000 solid'
+        background: '#24334e'
       }}
-      className='profile-item bg-dark'
+      className='profile-item'
     >
       <img style={{ width: '120px', height: '120px' }} src={avatar} alt='' />
       <div className='profile-details'>

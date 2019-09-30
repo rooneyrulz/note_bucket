@@ -21,7 +21,7 @@ const AppHeader = ({ auth: { isAuthenticated, user } }) => {
   const toggle = e => setisOpen(!isOpen);
 
   return (
-    <Navbar dark color='dark' expand='lg'>
+    <Navbar dark expand='lg'>
       <Container>
         <NavbarBrand href={isAuthenticated ? '/dashboard' : '/home'}>
           Note Bucket

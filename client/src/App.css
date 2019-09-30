@@ -11,3 +11,115 @@ body {
   font-family: 'Poppins', sans-serif;
   overflow-x: hidden;
 }
+
+.page-heading {
+  color: #29447c;
+}
+
+.btn-blue {
+  border: 1px solid #24334e;
+  color: #24334e;
+}
+
+.btn-blue:hover {
+  background:#24334e !important;
+  color: #f4f4f4 !important;
+}
+
+.navbar {
+  z-index: 2;
+  background: #24334e;
+  border-bottom: 1px #f4f4f4 solid;
+}
+
+.Home {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  background-image: url('./assets/home.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.home-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: #4a5c7a;
+  opacity: .50;
+}
+
+.Home .home-content {
+  z-index: 3;
+  color: #f4f4f4;
+}
+
+.Home .home-content .btn {
+  padding: 1rem 3rem;
+}
+
+.Home .home-content .btn-register {
+  background: #24334e;
+  color: #f4f4f4;
+}
+
+.Home .home-content .btn-register:hover {
+  background: transparent;
+  border: 1px solid #f4f4f4;
+}
+
+
+/* Dashboard */
+.Dashboard {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  background-image: url('./assets/dashboard.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.dashboard-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: #4a5c7a;
+  opacity: .70;
+}
+
+.Dashboard .dashboard-content {
+  z-index: 3;
+  color: #f4f4f4;
+}
+
+.Dashboard .dashboard-content .btn {
+  padding: 1rem 3rem;
+}
+
+.Dashboard .dashboard-content .btn-create-note {
+  background: #24334e;
+  color: #f4f4f4;
+}
+
+.Dashboard .dashboard-content .btn-create-note:hover {
+  background: transparent;
+  border: 1px solid #f4f4f4;
+}

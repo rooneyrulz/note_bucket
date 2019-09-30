@@ -8,7 +8,7 @@ import Spinner from '../../layouts/Spinner';
 import EditProfileForm from '../../components/profile-forms/EditProfileForm';
 
 const EditProfile = ({ auth: { user }, profile: { loading }, history }) => {
-  if (user.profile === null) history.push('/dashboard');
+  if (!user.profile) history.push('/dashboard');
 
   return (
     <div className='my-profile'>
@@ -20,11 +20,11 @@ const EditProfile = ({ auth: { user }, profile: { loading }, history }) => {
           alignItems: 'center'
         }}
       >
-        <h2 style={{ fontWeight: 'bold' }} className='text-info'>
+        <h2 style={{ fontWeight: 'bold' }} className='page-heading'>
           Update Profile
         </h2>
         <div className='btn-group'>
-          <Link to='/dashboard' className='btn btn-outline-dark'>
+          <Link to='/dashboard' className='btn btn-blue'>
             Back
           </Link>
         </div>

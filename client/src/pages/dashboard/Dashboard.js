@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import { Jumbotron } from 'reactstrap';
 
 // COMPONENTS
 import Spinner from '../../layouts/Spinner';
@@ -10,22 +9,26 @@ const Dashboard = ({ auth: { user, loading } }) => {
   return loading ? (
     <Spinner />
   ) : (
-    <div className='Dashboard'>
-      <Jumbotron style={{ background: 'transparent' }}>
-        <h1 className='text-info display-4'>Dashboard</h1>
-        <p className='lead text-info'>Welcome {user.username}</p>
-        {!user.profile && (
-          <p className='lead text-muted'>
-            It seems you have not setup your profile yet, Let's create one!
-          </p>
-        )}
-        <br />
-        <br />
-        <div className='btn-group'>
-          <DashboardActions />
+    <Fragment>
+      <div className='Dashboard'>
+        <div className='dashboard-content'>
+          <h1 className='display-4'>Dashboard</h1>
+          <p className='lead'>Welcome {user.username}</p>
+          {!user.profile && (
+            <p className='lead'>
+              It seems you have not setup your profile yet, Let's create one!
+            </p>
+          )}
+          <br />
+          <br />
+          <div className='btn-group'>
+            <DashboardActions />
+          </div>
         </div>
-      </Jumbotron>
-    </div>
+        <div className='dashboard-side'></div>
+      </div>
+      <div className='dashboard-overlay'></div>
+    </Fragment>
   );
 };
 

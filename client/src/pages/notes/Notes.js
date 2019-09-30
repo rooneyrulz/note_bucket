@@ -28,7 +28,7 @@ const Notes = ({ note: { notes, loading }, getNotes, history }) => {
           alignItems: 'center'
         }}
       >
-        <h2 style={{ fontWeight: 'bold' }} className='text-info'>
+        <h2 style={{ fontWeight: 'bold' }} className='page-heading'>
           Notes
         </h2>
         <div>
